@@ -226,9 +226,9 @@ document.addEventListener('DOMContentLoaded', async function() {
       Array.prototype.forEach.call(document.querySelectorAll('a'), function(link) {
         var text = normalizeText(link);
         if (linkMap[text]) link.setAttribute('href', linkMap[text]);
-        if (text.indexOf('感測即時儀表板') !== -1 && /AIoT%20|AIoT /.test(link.href)) {
-          link.setAttribute('href', '#services');
-          link.setAttribute('title', '儀表板頁面尚未上傳，暫先導向產品與服務。');
+        if (text.indexOf('感測即時儀表板') !== -1) {
+          link.setAttribute('href', 'dashboard.html');
+          link.setAttribute('title', '開啟 AIoT 感測即時儀表板。');
         }
       });
 
