@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Bundled Page</title>
+  <title>八麟光電科技有限公司｜AIoT 智慧產品設計中心</title>
+  <meta name="description" content="八麟光電科技有限公司提供 AIoT 智慧產品設計、嵌入式系統、AI 視覺辨識、LoRa 無線通訊、RF 天線設計與工業控制整合服務。">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #faf9f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
@@ -151,6 +152,103 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
       window.Babel.transformScriptTags();
     }
+    (function polishBalinWebsite() {
+      function setMeta(name, content, attr) {
+        attr = attr || 'name';
+        var selector = 'meta[' + attr + '="' + name + '"]';
+        var meta = document.querySelector(selector);
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute(attr, name);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', content);
+      }
+
+      document.title = '八麟光電科技有限公司｜AIoT 智慧產品設計中心';
+      setMeta('description', '八麟光電科技有限公司提供 AIoT 智慧產品設計、嵌入式系統、AI 視覺辨識、LoRa 無線通訊、RF 天線設計與工業控制整合服務。');
+      setMeta('og:title', '八麟光電科技有限公司｜AIoT 智慧產品設計中心', 'property');
+      setMeta('og:description', '嵌入式系統、AI 視覺辨識、LoRa／RF 無線通訊與工業控制整合，從概念到量產一站式支援。', 'property');
+      setMeta('og:type', 'website', 'property');
+
+      var style = document.createElement('style');
+      style.setAttribute('data-balin-polish', 'true');
+      style.textContent = [
+        'html{scroll-behavior:smooth;}',
+        'section[id]{scroll-margin-top:96px;}',
+        '@media (max-width: 768px){',
+        '  header nav{display:none!important;}',
+        '  header{min-height:auto!important;height:auto!important;}',
+        '  header > *{writing-mode:horizontal-tb!important;text-orientation:mixed!important;}',
+        '  header a, header button{writing-mode:horizontal-tb!important;text-orientation:mixed!important;}',
+        '}'
+      ].join('\n');
+      document.head.appendChild(style);
+
+      function normalizeText(el) {
+        return (el && (el.innerText || el.textContent) || '').replace(/\s+/g, ' ').trim();
+      }
+
+      function findSectionByText(text) {
+        var sections = Array.prototype.slice.call(document.querySelectorAll('section, footer'));
+        return sections.find(function(section) {
+          return normalizeText(section).indexOf(text) !== -1;
+        });
+      }
+
+      var targets = {
+        home: document.querySelector('section') || document.body,
+        capabilities: findSectionByText('六大核心能力'),
+        services: findSectionByText('產品與服務'),
+        news: findSectionByText('最新消息'),
+        contact: findSectionByText('聯絡方式') || document.querySelector('footer')
+      };
+      if (targets.home) targets.home.id = 'home';
+      if (targets.capabilities) targets.capabilities.id = 'capabilities';
+      if (targets.services) targets.services.id = 'services';
+      if (targets.news) targets.news.id = 'news';
+      if (targets.contact) targets.contact.id = 'contact';
+
+      var linkMap = {
+        '首頁': '#home',
+        '關於我們': '#capabilities',
+        '產品與服務': '#services',
+        '技術支援': '#capabilities',
+        '最新消息': '#news',
+        '聯絡我們': '#contact',
+        '查看全部 →': '#news',
+        'Embedded Systems': '#capabilities',
+        'AI Vision': '#capabilities',
+        'LoRa Wireless': '#capabilities',
+        'RF Antenna': '#capabilities'
+      };
+
+      Array.prototype.forEach.call(document.querySelectorAll('a'), function(link) {
+        var text = normalizeText(link);
+        if (linkMap[text]) link.setAttribute('href', linkMap[text]);
+        if (text.indexOf('感測即時儀表板') !== -1 && /AIoT%20|AIoT /.test(link.href)) {
+          link.setAttribute('href', '#services');
+          link.setAttribute('title', '儀表板頁面尚未上傳，暫先導向產品與服務。');
+        }
+      });
+
+      var buttonMap = {
+        '免費諮詢': '#contact',
+        '聯絡我們': '#contact',
+        '立即聯絡我們': '#contact',
+        '探索核心能力 →': '#capabilities',
+        '查看全部產品與服務 →': '#services'
+      };
+      Array.prototype.forEach.call(document.querySelectorAll('button'), function(button) {
+        var text = normalizeText(button);
+        if (!buttonMap[text]) return;
+        button.setAttribute('type', 'button');
+        button.addEventListener('click', function() {
+          var target = document.querySelector(buttonMap[text]);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    })();
   } catch (err) {
     setStatus('Error unpacking: ' + err.message);
     console.error('Bundle unpack error:', err);
