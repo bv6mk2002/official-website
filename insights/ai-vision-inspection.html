@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 視覺瑕疵檢測導入指南：從打光、資料標註到產線整合｜八麟光電科技有限公司</title>
+<meta name="description" content="AI 瑕疵檢測成敗的關鍵往往不在模型，而在打光、資料與產線整合。本文整理導入 AI 視覺檢測的七個步驟。">
+<link rel="canonical" href="https://www.balinedge.com.tw/insights/ai-vision-inspection.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="八麟光電科技有限公司">
+<meta property="og:title" content="AI 視覺瑕疵檢測導入指南：從打光、資料標註到產線整合｜八麟光電科技有限公司">
+<meta property="og:description" content="AI 瑕疵檢測成敗的關鍵往往不在模型，而在打光、資料與產線整合。本文整理導入 AI 視覺檢測的七個步驟。">
+<meta property="og:url" content="https://www.balinedge.com.tw/insights/ai-vision-inspection.html">
+<meta property="og:image" content="https://www.balinedge.com.tw/assets/img/p3.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#061423">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://www.balinedge.com.tw/">
+<link rel="alternate" hreflang="en" href="https://www.balinedge.com.tw/en/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css?v=20260925">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://www.balinedge.com.tw/"}, {"@type": "ListItem", "position": 2, "name": "技術專欄", "item": "https://www.balinedge.com.tw/insights/"}, {"@type": "ListItem", "position": 3, "name": "AI 視覺瑕疵檢測導入指南：從打光、資料標註到產線整合", "item": "https://www.balinedge.com.tw/insights/ai-vision-inspection.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "AI 視覺瑕疵檢測導入指南：從打光、資料標註到產線整合", "description": "AI 瑕疵檢測成敗的關鍵往往不在模型，而在打光、資料與產線整合。本文整理導入 AI 視覺檢測的七個步驟。", "datePublished": "2026-09-25", "inLanguage": "zh-Hant-TW", "image": "https://www.balinedge.com.tw/assets/img/p3.webp", "author": {"@type": "Organization", "name": "八麟光電科技有限公司"}, "publisher": {"@id": "https://www.balinedge.com.tw/#org"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要內容</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="八麟光電科技有限公司 首頁">
+      <img src="../assets/img/logo.svg" alt="" width="42" height="42">
+      <span class="brand-name"><b>八麟光電科技</b><small>BALIN OPTOELECTRONICS</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="開啟選單" aria-expanded="false"><span></span></button>
+    <nav class="nav" aria-label="主選單">
+      <a href="../about.html">關於我們</a><div class="dd"><button type="button" aria-expanded="false">產品與服務</button><div class="dd-menu"><a href="../services/embedded.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5"/></svg><span><b>嵌入式系統</b><small>STM32、ESP32、PIC、ARM Linux 平台的電路設計、韌體與驅動開發。</small></span></a><a href="../services/ai-vision.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span><b>AI 視覺辨識</b><small>YOLO 物件偵測、OCR 文字辨識與 Edge AI 部署，落地產線與場域。</small></span></a><a href="../services/lora.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19v-3M10 19v-7M15 19v-11M20 19V4"/></svg><span><b>LoRa 無線通訊</b><small>SX12xx 射頻設計、LoRaWAN 組網，公里級距離、低功耗長續航。</small></span></a><a href="../services/rf-antenna.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2"/><path d="M12 8v13M7.5 11a6.5 6.5 0 0 1 9 0M4.6 8.2a10.5 10.5 0 0 1 14.8 0"/></svg><span><b>RF 天線設計</b><small>PCB、IFA、Patch 天線客製與網路分析儀阻抗匹配調校。</small></span></a><a href="../services/industrial.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span><b>工業控制</b><small>PLC、RS485／Modbus、CAN 與 MQTT，打通設備資料與產線自動化。</small></span></a><a href="../services/odm.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 8v8l8 4 8-4V8M12 12v8"/></svg><span><b>客製化 ODM</b><small>PCB Layout、打樣、試產到量產，並協助產品測試與法規認證。</small></span></a><a class="all" href="../services/">查看全部產品與服務 →</a></div></div><a href="../applications.html">應用場域</a><a href="../demos.html">即時展示</a><a href="../insights/" aria-current="page">技術專欄</a><a href="../support.html">技術支援</a>
+      <a class="lang" href="../en/" lang="en">EN</a>
+      <a class="btn btn-primary btn-sm" href="../contact.html">聯絡我們</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="麵包屑"><a href="../index.html">首頁</a><span>/</span><a href="./">技術專欄</a></nav>
+  <div class="post-meta" style="color:#9DB1C8"><span class="pill">AI 視覺辨識</span><time datetime="2026-09-25">2026.09.25</time><span>八麟光電研發團隊</span></div>
+  <h1>AI 視覺瑕疵檢測導入指南：從打光、資料標註到產線整合</h1><p>AI 瑕疵檢測成敗的關鍵往往不在模型，而在打光、資料與產線整合。本文整理導入 AI 視覺檢測的七個步驟。</p>
+</div></section>
+<section><div class="wrap">
+  <article class="article">
+    <figure style="margin-top:0"><img src="../assets/img/p3.webp" alt="AI 視覺瑕疵檢測導入指南：從打光、資料標註到產線整合" width="900" height="900" fetchpriority="high"><figcaption>示意圖</figcaption></figure>
+    <nav class="toc" aria-label="文章目錄"><b>本文目錄</b><ol><li><a href="#define">一、先定義「什麼是瑕疵」</a></li><li><a href="#light">二、打光比模型更重要</a></li><li><a href="#data">三、收集與標註資料</a></li><li><a href="#model">四、選擇模型類型</a></li><li><a href="#metric">五、用對評估指標</a></li><li><a href="#edge">六、邊緣部署</a></li><li><a href="#integrate">七、產線整合與持續優化</a></li></ol></nav>
+    
+<p>越來越多工廠希望用 AI 取代人工目檢。但實際導入時，常見的狀況是：實驗室準確率很高，上線後卻誤判連連。問題通常不在模型本身，而在前後的環節。以下是我們建議的導入步驟。</p>
+
+<h2 id="define">一、先定義「什麼是瑕疵」</h2>
+<p>與品管人員一起列出瑕疵類型、可接受的尺寸與程度，並準備標準樣品。若連人員之間的判定都不一致，AI 也無法學出穩定的標準。</p>
+
+<h2 id="light">二、打光比模型更重要</h2>
+<p>好的光源設計能讓瑕疵「自己跳出來」，大幅降低模型難度：</p>
+<ul>
+<li><b>背光：</b>適合量測外形輪廓、檢查孔洞與透光瑕疵。</li>
+<li><b>同軸光：</b>適合反光表面上的刮傷與壓痕。</li>
+<li><b>低角度環形光：</b>凸顯表面凹凸、刻字與細小刮痕。</li>
+</ul>
+<p>同時要控制外部光線干擾，並選擇合適的相機解析度、鏡頭與快門速度，確保產線移動中的影像依然清晰。</p>
+
+<h2 id="data">三、收集與標註資料</h2>
+<p>瑕疵品通常遠少於良品，資料不平衡是常態。建議持續收集各類瑕疵樣本，標註時保持一致的框選標準，並保留一部分資料作為驗證用，不參與訓練。</p>
+
+<h2 id="model">四、選擇模型類型</h2>
+<div class="table-scroll"><table>
+<tr><th>任務</th><th>說明</th><th>適用情境</th></tr>
+<tr><td>分類</td><td>判斷整張影像 OK／NG</td><td>瑕疵明顯、不需定位</td></tr>
+<tr><td>物件偵測（如 YOLO）</td><td>框出瑕疵位置與類別</td><td>需知道瑕疵位置、數量</td></tr>
+<tr><td>分割</td><td>標出瑕疵的精確輪廓</td><td>需量測瑕疵面積</td></tr>
+</table></div>
+
+<h2 id="metric">五、用對評估指標</h2>
+<p>產線最在意的通常是<b>漏檢率</b>（瑕疵品被當成良品放行）與<b>誤判率</b>（良品被剔除）。兩者往往互相拉扯，需要和品管單位一起決定判定門檻，而不是只看單一的「準確率」。</p>
+
+<h2 id="edge">六、邊緣部署</h2>
+<p>為了即時性與資料不外流，模型通常部署在產線旁的邊緣運算裝置。透過模型輕量化與量化（例如 INT8），在有限的運算資源下達到產線節拍要求。</p>
+
+<h2 id="integrate">七、產線整合與持續優化</h2>
+<ul>
+<li>以感測器或 PLC 訊號觸發拍照，確保每個工件都在同一位置取像。</li>
+<li>判定結果輸出 DO 訊號給 PLC 或剔除機構。</li>
+<li>保存 NG 影像與判定紀錄，供品質追溯與模型再訓練。</li>
+<li>定期檢視誤判案例，持續擴充資料集。</li>
+</ul>
+<div class="callout"><b>想評估您的產線是否適合導入？</b>提供幾張良品與瑕疵品照片，我們可先做初步可行性評估。<a href="../contact.html?subject=客製化開發&amp;ref=AI 視覺瑕疵檢測可行性評估">立即諮詢</a></div>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:48px 0 24px">
+    <p class="muted">本文由八麟光電研發團隊整理，內容為一般性技術說明；實際設計請依產品條件與最新法規評估。相關服務：<a href="../services/ai-vision.html">AI 視覺辨識</a></p>
+  </article>
+</div></section>
+<section class="soft"><div class="wrap"><div class="sec-head"><h2>延伸閱讀</h2></div>
+<div class="grid g3"><a class="card reveal" href="lora-taiwan-as923.html">
+  <div class="media"><img src="../assets/img/lora-chip.webp" alt="台灣 LoRa 頻段怎麼選？AS923 與 SF、BW 參數設計重點" width="900" height="584" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">LoRa 無線通訊</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>台灣 LoRa 頻段怎麼選？AS923 與 SF、BW 參數設計重點</h3><p>LoRa 在台灣使用 920–925 MHz（AS923）。本文整理頻段、擴頻因子（SF）、頻寬（BW）與傳輸距離、電池壽命之間的取捨。</p><span class="more arrow">閱讀全文 </span></div>
+</a><a class="card reveal" href="pcb-antenna-design.html">
+  <div class="media"><img src="../assets/img/p7.webp" alt="PCB 天線怎麼選？IFA、Meander、Patch 與匹配調校" width="900" height="525" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">RF 天線設計</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>PCB 天線怎麼選？IFA、Meander、Patch 與匹配調校</h3><p>PCB 天線成本低、免組裝，但對板面空間與周邊元件非常敏感。本文比較常見 PCB 天線的特性，並說明如何用網路分析儀完成匹配。</p><span class="more arrow">閱讀全文 </span></div>
+</a><a class="card reveal" href="esp32-low-power.html">
+  <div class="media"><img src="../assets/img/esp32.webp" alt="ESP32 電池產品低功耗設計：Deep-sleep 實務與常見陷阱" width="900" height="752" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">嵌入式系統</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>ESP32 電池產品低功耗設計：Deep-sleep 實務與常見陷阱</h3><p>ESP32 晶片 Deep-sleep 電流可低到微安培等級，但很多產品實測卻是好幾 mA。問題通常出在周邊電路，而不是晶片本身。</p><span class="more arrow">閱讀全文 </span></div>
+</a></div></div></section>
+<section class="cta-wrap"><div class="wrap"><div class="cta-box reveal">
+  <div><h2>準備好開始您的專案了嗎？</h2><p>歡迎與我們的技術團隊聊聊您的需求，免費取得從概念到量產的方案建議。</p></div>
+  <div class="actions"><a class="btn btn-primary" href="../contact.html">免費諮詢</a>
+  <a class="btn btn-ghost" href="tel:+886-932-830814"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg> 0932-830814</a></div>
+</div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../index.html"><img src="../assets/img/logo.svg" alt="" width="42" height="42" loading="lazy">
+          <span class="brand-name"><b>八麟光電科技有限公司</b><small>BALIN OPTOELECTRONICS</small></span></a>
+        <p>AIoT 智慧產品設計中心 — 嵌入式系統、AI 視覺辨識、LoRa／RF 無線通訊與工業控制整合，從概念到量產一條龍完成。</p>
+      </div>
+      <div><h4>產品與服務</h4><ul><li><a href="../services/embedded.html">嵌入式系統</a></li><li><a href="../services/ai-vision.html">AI 視覺辨識</a></li><li><a href="../services/lora.html">LoRa 無線通訊</a></li><li><a href="../services/rf-antenna.html">RF 天線設計</a></li><li><a href="../services/industrial.html">工業控制</a></li><li><a href="../services/odm.html">客製化 ODM</a></li></ul></div>
+      <div><h4>快速連結</h4><ul>
+        <li><a href="../about.html">關於我們</a></li>
+        <li><a href="../applications.html">應用場域</a></li>
+        <li><a href="../demos.html">即時展示</a></li>
+        <li><a href="../insights/">技術專欄</a></li>
+        <li><a href="../support.html">技術支援</a></li>
+        <li><a href="../contact.html">聯絡我們</a></li>
+      </ul></div>
+      <div><h4>聯絡方式</h4><ul>
+        <li>臺南市永康區龍埔里永大路3段618巷12號1樓</li>
+        <li>電話：<a href="tel:+886-932-830814">0932-830814</a></li>
+        <li>信箱：<a href="mailto:bv6mk2002@gmail.com">bv6mk2002@gmail.com</a></li>
+        <li>週一至週五 09:00–18:00</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 八麟光電科技有限公司 BALIN OPTOELECTRONICS CO., LTD.　統一編號 24406780</span>
+      <span><a href="../credits.html">圖片來源與授權</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=20260925" defer></script>
+</body>
+</html>
