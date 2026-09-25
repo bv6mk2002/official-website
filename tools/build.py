@@ -14,12 +14,30 @@ from datetime import date
 sys.path.insert(0, os.path.dirname(__file__))
 from content import (APPLICATIONS, ARTICLES, COMPANY as C, DEMOS, DOCS, FAQS, MODELS, PROCESS,
                      SERVICES, SITE_URL, SUPPORT_STEPS, TIMELINE, VALUES, WHY)
+import photos
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TODAY = date.today().isoformat()
 SVC = {s["slug"]: s for s in SERVICES}
 CREDITS = json.load(open(os.path.join(ROOT, "tools", "credits.json"), encoding="utf-8"))
 PAGES = []  # 給 sitemap 用
+PH = {}     # 照片庫（build 時載入）
+
+
+def photo(slug, key, default):
+    """照片庫有對應照片就用照片庫的，否則用預設圖。"""
+    return PH.get(slug, {}).get(key) or default
+
+
+def gallery(R, slug, title, lead=""):
+    items = PH.get(slug, {}).get("gallery", [])
+    if not items:
+        return ""
+    figs = "".join(
+        f'<figure class="reveal"><a href="{R}assets/img/{i}.webp" data-lightbox>{img(R, i, c or title)}</a>'
+        f'{f"<figcaption>{e(c)}</figcaption>" if c else ""}</figure>' for i, c in items)
+    lead_html = f'<p>{lead}</p>' if lead else ""
+    return f'<div class="gallery-head"><h2>{title}</h2>{lead_html}</div><div class="gallery">{figs}</div>'
 e = html.escape
 
 # ---------------------------------------------------------------------------
@@ -259,7 +277,7 @@ def render(path, *, title, desc, body, active=None, lang="zh-Hant-TW", ld=None, 
 
 def svc_card(R, s):
     return f'''<a class="card reveal" href="{R}services/{s["slug"]}.html">
-  <div class="media">{img(R, s["card"], s["name"])}</div>
+  <div class="media">{img(R, photo(s["slug"], "cover", s["card"]), s["name"])}</div>
   <span class="icon-badge">{icon(s["icon"])}</span>
   <div class="body"><span class="card-en">{e(s["en"])}</span><h3>{e(s["name"])}</h3>
   <p>{e(s["summary"])}</p>{tags(s["tags"][:5])}<span class="more arrow">了解更多 </span></div>
@@ -303,7 +321,7 @@ def build_home():
       <ul class="chips"><li>STM32／ESP32</li><li>YOLO／OCR</li><li>LoRaWAN</li><li>PCB 天線</li><li>Modbus／MQTT</li><li>OEM／ODM</li></ul>
     </div>
     <div class="hero-visual">
-      <div class="photo">{img(R, "hero", "電路板上的微控制器晶片特寫", lazy=False)}</div>
+      <div class="photo">{img(R, photo("home", "hero", "hero"), "電路板上的微控制器晶片特寫", lazy=False)}</div>
       <div class="hero-card"><span class="pulse"></span><span><b>{years}+ 年</b>嵌入式研發經驗</span></div>
     </div>
   </div>
@@ -339,6 +357,7 @@ def build_home():
   </div>
 </div></section>
 
+{f'<section><div class="wrap">{gallery(R, "home", "研發現場")}</div></section>' if PH.get("home", {}).get("gallery") else ""}
 <section class="soft"><div class="wrap">
   <div class="sec-head split"><div><span class="eyebrow">Applications</span><h2>應用場域</h2>
   <p>從工廠設備監測到農場環境感測，我們把技術整合成解決現場問題的方案。</p></div>
@@ -377,7 +396,7 @@ def build_about():
     crumbs = [("關於我們", None)]
     rows = [("公司名稱", C["name"]), ("英文名稱", C["en"]), ("統一編號", C["tax_id"]), ("負責人", C["owner"]),
             ("設立日期", C["founded"]), ("組織種類", C["type"]), ("資本額", C["capital"]), ("公司地址", C["address"])]
-    body = f'''{page_hero(R, "關於八麟光電", "AIoT 智慧產品設計中心 —— 從概念、硬體、韌體、AI 到量產，一條龍完成。", crumbs, bg="about-lab", eyebrow="About Us")}
+    body = f'''{page_hero(R, "關於八麟光電", "AIoT 智慧產品設計中心 —— 從概念、硬體、韌體、AI 到量產，一條龍完成。", crumbs, bg=photo("about", "cover", "about-lab"), eyebrow="About Us")}
 <section><div class="wrap split">
   <div class="reveal">
     <span class="eyebrow">Company Profile</span><h2>公司簡介</h2>
@@ -385,7 +404,7 @@ def build_about():
     <p>我們不只是電子設計公司，而是客戶眼中的「AIoT 智慧產品設計中心」——從概念發想、硬體設計、韌體開發、AI 演算法整合，到原型打樣、認證測試與量產交付，提供一條龍的完整支援。</p>
     <p>憑藉跨領域整合能力，我們協助客戶將創新構想快速實現為可量產的智慧產品，服務領域涵蓋工業自動化、智慧監控、智慧農業與物聯網應用。</p>
   </div>
-  <div class="photo reveal">{img(R, "about-lab", "電子實驗室中的工程師與量測儀器")}</div>
+  <div class="photo reveal">{img(R, photo("about", "cover", "about-lab"), "八麟光電研發實驗室" if PH.get("about", {}).get("cover") else "電子實驗室中的工程師與量測儀器")}</div>
 </div></section>
 
 <section class="soft"><div class="wrap">
@@ -402,6 +421,7 @@ def build_about():
   </div>
 </div></section>
 
+{f'<section class="soft"><div class="wrap">{gallery(R, "about", "公司實景", "我們的辦公室、實驗室與開發設備。")}</div></section>' if PH.get("about", {}).get("gallery") else ""}
 <section class="dark"><div class="wrap split">
   <div class="photo reveal">{img(R, "support", "開發中的電路板與測試設備")}</div>
   <div class="reveal"><span class="eyebrow">What We Do</span><h2>我們的技術領域</h2>
@@ -431,15 +451,15 @@ def build_services():
         crumbs = [("產品與服務", "services/"), (s["name"], None)]
         cur = ' aria-current="page"'
         others = "".join(f'<a href="{o["slug"]}.html"{cur if o is s else ""}>{e(o["name"])}<span>→</span></a>' for o in SERVICES)
-        products = "".join(f'''<div class="product reveal">{img(R, p["img"], p["name"])}
+        products = "".join(f'''<div class="product reveal">{img(R, photo(s["slug"], f"p{n}", p["img"]), p["name"])}
   <div><h3>{e(p["name"])}</h3>{tags(p["tags"])}<p>{e(p["desc"])}</p>
-  <a class="btn btn-line btn-sm" href="../contact.html?subject=產品諮詢&amp;ref={e(p["name"])}">詢問此方案</a></div></div>''' for p in s["products"])
+  <a class="btn btn-line btn-sm" href="../contact.html?subject=產品諮詢&amp;ref={e(p["name"])}">詢問此方案</a></div></div>''' for n, p in enumerate(s["products"], 1))
         related = [a for a in ARTICLES if a["service"] == s["slug"]]
         rel_html = ""
         if related:
             rel_html = f'<h2 style="margin-top:56px">相關技術文章</h2><div class="grid g2">{"".join(article_card(R, a, "../insights/") for a in related)}</div>'
         apps = [a for a in APPLICATIONS if s["slug"] in a["tech"]]
-        body = f'''{page_hero(R, s["name"], s["summary"], crumbs, bg=s["hero"], eyebrow=s["en"])}
+        body = f'''{page_hero(R, s["name"], s["summary"], crumbs, bg=photo(s["slug"], "cover", s["hero"]), eyebrow=s["en"])}
 <section><div class="wrap svc-layout">
   <div>
     <p class="lead-lg reveal">{e(s["intro"])}</p>
@@ -451,6 +471,7 @@ def build_services():
     <h2 style="margin-top:56px">應用場域</h2>
     <div class="grid g2">{"".join(f'<a class="card reveal" href="../applications.html#{a["id"]}"><div class="body"><h3>{e(a["title"])}</h3><p>{e(a["challenge"])}</p><span class="more arrow">看解決方案 </span></div></a>' for a in apps)}</div>
     <p class="muted" style="margin-top:16px">其他適用情境：{"、".join(s["apps"])}。</p>
+    {gallery(R, s["slug"], "實景照片", "八麟光電實際開發與測試現場。")}
     {rel_html}
   </div>
   <aside class="svc-aside">
@@ -643,13 +664,25 @@ def build_contact():
            body=body, active="contact", ld=[breadcrumb_ld("contact.html", crumbs), ORG_LD], priority="0.8")
 
 
+def used_images():
+    used = set()
+    for dp, _, fs in os.walk(ROOT):
+        if ".git" in dp or "tools" in dp:
+            continue
+        for f in fs:
+            if f.endswith(".html") and f != "credits.html":
+                used.update(re.findall(r'assets/img/([\w-]+)\.webp', open(os.path.join(dp, f), encoding="utf-8").read()))
+    return used
+
+
 def build_credits():
     R = ""
+    used = used_images()
     rows = "".join(
         f'<tr><td><img src="assets/img/{k}.webp" alt="" width="96" loading="lazy" style="border-radius:6px"></td>'
         f'<td><a href="{e(v["page"])}" target="_blank" rel="noopener">{e(v["title"].replace("File:", ""))}</a></td>'
         f'<td>{e(html.unescape(v["artist"])) or "—"}</td><td>{e(v["license"])}</td></tr>'
-        for k, v in CREDITS.items())
+        for k, v in CREDITS.items() if k in used)
     body = f'''{page_hero(R, "圖片來源與授權", "本網站部分照片來自 Wikimedia Commons，依各自的開放授權條款使用。", [("圖片來源與授權", None)])}
 <section><div class="wrap">
   <p>以下照片為示意用途，版權屬原作者所有，依所列授權（CC0、公有領域、CC BY、CC BY-SA）使用，部分照片經裁切與壓縮。點選標題可查看原始檔案與完整授權。即時展示畫面、網站標誌與插圖為八麟光電所有。</p>
@@ -710,7 +743,7 @@ def footer_en(R):
 def build_en():
     R = "../"
     years = date.today().year - C["founded_year"]
-    cards = "".join(f'''<div class="card reveal"><div class="media">{img(R, s["card"], s["en"])}</div>
+    cards = "".join(f'''<div class="card reveal"><div class="media">{img(R, photo(s["slug"], "cover", s["card"]), s["en"])}</div>
   <span class="icon-badge">{icon(s["icon"])}</span><div class="body"><h3>{s["en"]}</h3><p>{EN_SERVICES[s["slug"]]}</p></div></div>''' for s in SERVICES)
     body = f'''
 <section class="hero"><div class="wrap">
@@ -720,7 +753,7 @@ def build_en():
     <div class="cta"><a class="btn btn-primary" href="#contact">Talk to an engineer</a><a class="btn btn-ghost" href="#capabilities">Our capabilities</a></div>
     <ul class="chips"><li>STM32 / ESP32</li><li>YOLO / OCR</li><li>LoRaWAN</li><li>PCB Antenna</li><li>Modbus / MQTT</li><li>OEM / ODM</li></ul>
   </div>
-  <div class="hero-visual"><div class="photo">{img(R, "hero", "Microcontroller on a circuit board", lazy=False)}</div>
+  <div class="hero-visual"><div class="photo">{img(R, photo("home", "hero", "hero"), "Microcontroller on a circuit board", lazy=False)}</div>
     <div class="hero-card"><span class="pulse"></span><span><b>{years}+ years</b>of embedded engineering</span></div></div>
 </div></section>
 <section id="capabilities"><div class="wrap">
@@ -765,6 +798,7 @@ def build_meta_files():
 
 
 if __name__ == "__main__":
+    PH.update(photos.load())
     print("產生頁面：")
     build_home()
     build_about()
@@ -774,8 +808,8 @@ if __name__ == "__main__":
     build_insights()
     build_support()
     build_contact()
-    build_credits()
     build_404()
     build_en()
+    build_credits()  # 最後產生，只列出實際使用中的圖片
     build_meta_files()
     print(f"完成，共 {len(PAGES)} 頁列入 sitemap。")

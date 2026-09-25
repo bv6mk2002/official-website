@@ -39,6 +39,27 @@
     items.forEach(function (el) { el.classList.add('in'); });
   }
 
+  // 相簿點擊放大
+  var links = document.querySelectorAll('a[data-lightbox]');
+  if (links.length && window.HTMLDialogElement) {
+    var dlg = document.createElement('dialog');
+    dlg.className = 'lightbox';
+    dlg.innerHTML = '<button type="button" aria-label="關閉">×</button><img alt=""><p></p>';
+    document.body.appendChild(dlg);
+    dlg.querySelector('button').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    links.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var cap = a.parentElement.querySelector('figcaption');
+        dlg.querySelector('img').src = a.href;
+        dlg.querySelector('img').alt = a.querySelector('img').alt;
+        dlg.querySelector('p').textContent = cap ? cap.textContent : '';
+        dlg.showModal();
+      });
+    });
+  }
+
   // 聯絡表單：從網址帶入諮詢主題（contact.html?subject=技術文件索取）
   var form = document.getElementById('contact-form');
   if (!form) return;

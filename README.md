@@ -30,6 +30,11 @@ https://www.balinedge.com.tw — GitHub Pages 靜態網站（repo：`bv6mk2002/o
 | `*dashboard.html` | 即時監測展示（獨立頁面，不由 build.py 產生） |
 | `tools/credits.json` | 開放授權圖片的來源與授權資訊 |
 
+## 照片庫
+
+自家照片放在 site 資料夾「外面」的 `../照片庫/<分類>/`，執行 `build.py` 時會自動轉正方向、縮圖、轉成 WebP、移除 EXIF（含 GPS），
+輸出到 `assets/img/photos/`，並取代對應的示意圖。原始照片不進 git。規則詳見 `../照片庫/使用說明.txt`，程式在 `tools/photos.py`。
+
 ## 新增技術文章
 
 在 `tools/content.py` 的 `ARTICLES` 加一筆，圖片放到 `assets/img/`（WebP 格式），再執行 `build.py`。
