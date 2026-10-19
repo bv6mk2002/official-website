@@ -11,6 +11,8 @@ COMPANY = {
     "short": "八麟光電",
     "en": "BALIN OPTOELECTRONICS CO., LTD.",
     "en_short": "BALIN OPTOELECTRONICS",
+    "brand": "八麟光電科技",            # 頁首標誌旁的名稱
+    "brand_sub": "BALIN OPTOELECTRONICS",
     "tagline": "AIoT 智慧產品設計中心",
     "tax_id": "24406780",
     "owner": "吳仁文",
@@ -22,6 +24,7 @@ COMPANY = {
     "address_en": "1F., No. 12, Ln. 618, Sec. 3, Yongda Rd., Yongkang Dist., Tainan City, Taiwan",
     "phone": "0932-830814",
     "phone_intl": "+886-932-830814",
+    "phone_display": "0932-830814",     # 網頁上顯示的電話
     "email": "bv6mk2002@gmail.com",
     "hours": "週一至週五 09:00–18:00",
     # 表單寄送服務（formsubmit.co）。第一次收到表單時，需到信箱點擊啟用連結。
@@ -407,7 +410,7 @@ ARTICLES = [
 
 <h2 id="tip">四、何時該改用外接或模組天線？</h2>
 <p>若產品為金屬外殼、需要長距離傳輸，或時程緊迫、不想承擔送測風險，採用已驗證的外接天線或內建天線模組，常常是更划算的選擇。我們會依產品條件評估最適方案。</p>
-<div class="callout"><b>既有產品收訊不佳？</b>我們提供單次天線診斷與匹配調校服務，不需重新設計整個產品。<a href="../contact.html?subject=技術支援&amp;ref=天線診斷與匹配調校">立即諮詢</a></div>
+<div class="callout"><b>既有產品收訊不佳？</b>我們提供單次天線診斷與匹配調校服務，不需重新設計整個產品。<a href="../contact.html?subject=support&amp;ref=天線診斷與匹配調校">立即諮詢</a></div>
 """,
     },
     {
@@ -506,7 +509,7 @@ ARTICLES = [
 <li>保存 NG 影像與判定紀錄，供品質追溯與模型再訓練。</li>
 <li>定期檢視誤判案例，持續擴充資料集。</li>
 </ul>
-<div class="callout"><b>想評估您的產線是否適合導入？</b>提供幾張良品與瑕疵品照片，我們可先做初步可行性評估。<a href="../contact.html?subject=客製化開發&amp;ref=AI 視覺瑕疵檢測可行性評估">立即諮詢</a></div>
+<div class="callout"><b>想評估您的產線是否適合導入？</b>提供幾張良品與瑕疵品照片，我們可先做初步可行性評估。<a href="../contact.html?subject=custom&amp;ref=AI 視覺瑕疵檢測可行性評估">立即諮詢</a></div>
 """,
     },
     {

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整｜八麟光電科技有限公司</title>
+<meta name="description" content="PCB アンテナは低コストで組立も不要ですが、基板スペースや周辺部品の影響を強く受けます。代表的な PCB アンテナの特徴と、ネットワークアナライザによる整合の方法を解説します。">
+<link rel="canonical" href="https://www.balinedge.com.tw/ja/insights/pcb-antenna-design.html">
+<link rel="alternate" hreflang="zh-TW" href="https://www.balinedge.com.tw/insights/pcb-antenna-design.html">
+<link rel="alternate" hreflang="en" href="https://www.balinedge.com.tw/en/insights/pcb-antenna-design.html">
+<link rel="alternate" hreflang="ja" href="https://www.balinedge.com.tw/ja/insights/pcb-antenna-design.html">
+<link rel="alternate" hreflang="de" href="https://www.balinedge.com.tw/de/insights/pcb-antenna-design.html">
+<link rel="alternate" hreflang="zh-CN" href="https://www.balinedge.com.tw/zh-cn/insights/pcb-antenna-design.html">
+<link rel="alternate" hreflang="x-default" href="https://www.balinedge.com.tw/en/insights/pcb-antenna-design.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="八麟光電科技有限公司">
+<meta property="og:title" content="PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整｜八麟光電科技有限公司">
+<meta property="og:description" content="PCB アンテナは低コストで組立も不要ですが、基板スペースや周辺部品の影響を強く受けます。代表的な PCB アンテナの特徴と、ネットワークアナライザによる整合の方法を解説します。">
+<meta property="og:url" content="https://www.balinedge.com.tw/ja/insights/pcb-antenna-design.html">
+<meta property="og:image" content="https://www.balinedge.com.tw/assets/img/p7.webp">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#061423">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261020">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.balinedge.com.tw/ja/"}, {"@type": "ListItem", "position": 2, "name": "技術コラム", "item": "https://www.balinedge.com.tw/ja/insights/"}, {"@type": "ListItem", "position": 3, "name": "PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整", "item": "https://www.balinedge.com.tw/ja/insights/pcb-antenna-design.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整", "description": "PCB アンテナは低コストで組立も不要ですが、基板スペースや周辺部品の影響を強く受けます。代表的な PCB アンテナの特徴と、ネットワークアナライザによる整合の方法を解説します。", "datePublished": "2026-09-25", "inLanguage": "ja", "image": "https://www.balinedge.com.tw/assets/img/p7.webp", "author": {"@type": "Organization", "name": "八麟光電科技有限公司"}, "publisher": {"@id": "https://www.balinedge.com.tw/#org"}}</script>
+</head>
+<body data-close="閉じる">
+<a class="skip" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../ja/index.html" aria-label="八麟光電科技有限公司">
+      <img src="../../assets/img/logo.svg" alt="" width="42" height="42">
+      <span class="brand-name"><b>八麟光電科技</b><small>BALIN OPTOELECTRONICS</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="メインメニュー" aria-expanded="false"><span></span></button>
+    <nav class="nav" aria-label="メインメニュー">
+      <a href="../../ja/about.html">会社概要</a><div class="dd"><button type="button" aria-expanded="false">製品・サービス</button><div class="dd-menu"><a href="../../ja/services/embedded.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5"/></svg><span><b>組込みシステム</b><small>STM32、ESP32、PIC、ARM Linux の回路設計、ファームウェア、ドライバー開発。</small></span></a><a href="../../ja/services/ai-vision.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span><b>AI 画像認識</b><small>YOLO 物体検出、OCR 文字認識、エッジ AI の実装で生産ラインと現場に導入。</small></span></a><a href="../../ja/services/lora.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19v-3M10 19v-7M15 19v-11M20 19V4"/></svg><span><b>LoRa 無線通信</b><small>SX12xx の RF 設計と LoRaWAN ネットワーク。km 単位の通信距離を低消費電力で。</small></span></a><a href="../../ja/services/rf-antenna.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2"/><path d="M12 8v13M7.5 11a6.5 6.5 0 0 1 9 0M4.6 8.2a10.5 10.5 0 0 1 14.8 0"/></svg><span><b>RF アンテナ設計</b><small>PCB・IFA・パッチアンテナのカスタム設計と、ネットワークアナライザによる整合調整。</small></span></a><a href="../../ja/services/industrial.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span><b>産業制御</b><small>PLC、RS485／Modbus、CAN、MQTT で設備データと生産ラインの自動化をつなぎます。</small></span></a><a href="../../ja/services/odm.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 8v8l8 4 8-4V8M12 12v8"/></svg><span><b>カスタム ODM</b><small>PCB レイアウト、試作、量産試作から量産まで。製品試験と認証取得もサポート。</small></span></a><a class="all" href="../../ja/services/">製品・サービス一覧 →</a></div></div><a href="../../ja/applications.html">導入事例・用途</a><a href="../../ja/demos.html">ライブデモ</a><a href="../../ja/insights/" aria-current="page">技術コラム</a><a href="../../ja/support.html">技術サポート</a>
+      <div class="dd lang-dd"><button type="button" aria-expanded="false" aria-label="言語を切り替える"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>日本語</span></button><div class="dd-menu"><a href="../../insights/pcb-antenna-design.html" lang="zh-Hant-TW" hreflang="zh-TW"><b>繁體中文</b></a><a href="../../en/insights/pcb-antenna-design.html" lang="en" hreflang="en"><b>English</b></a><a href="../../ja/insights/pcb-antenna-design.html" lang="ja" hreflang="ja" aria-current="true"><b>日本語</b></a><a href="../../de/insights/pcb-antenna-design.html" lang="de" hreflang="de"><b>Deutsch</b></a><a href="../../zh-cn/insights/pcb-antenna-design.html" lang="zh-Hans-CN" hreflang="zh-CN"><b>简体中文</b></a></div></div>
+      <a class="btn btn-primary btn-sm" href="../../ja/contact.html">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="パンくずリスト"><a href="../../ja/index.html">ホーム</a><span>/</span><a href="./">技術コラム</a></nav>
+  <div class="post-meta" style="color:#9DB1C8"><span class="pill">RF アンテナ設計</span><time datetime="2026-09-25">2026.09.25</time><span>八麟光電 開発チーム</span></div>
+  <h1>PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整</h1><p>PCB アンテナは低コストで組立も不要ですが、基板スペースや周辺部品の影響を強く受けます。代表的な PCB アンテナの特徴と、ネットワークアナライザによる整合の方法を解説します。</p>
+</div></section>
+<section><div class="wrap">
+  <article class="article">
+    <figure style="margin-top:0"><img src="../../assets/img/p7.webp" alt="PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整" width="900" height="525" fetchpriority="high"><figcaption>イメージ写真</figcaption></figure>
+    <nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#types">1. 代表的な PCB アンテナの種類</a></li><li><a href="#layout">2. レイアウトの注意点</a></li><li><a href="#matching">3. ネットワークアナライザで整合を取る</a></li><li><a href="#tip">4. 外付けアンテナやモジュールを選ぶべきケース</a></li></ol></nav>
+    
+<p>多くの IoT 製品が PCB アンテナを採用しています。基板上に直接パターンを描くため、追加部品も組立も不要でコストが最も低くなります。一方で、基板サイズ、グラウンド、筐体の影響を最も受けやすいため、設計には注意が必要です。</p>
+
+<h2 id="types">1. 代表的な PCB アンテナの種類</h2>
+<div class="table-scroll"><table>
+<tr><th>種類</th><th>特徴</th><th>適した用途</th></tr>
+<tr><td>モノポール</td><td>最もシンプルな構造。長さは約 1/4 波長で帯域が広い</td><td>基板スペースに余裕がある場合</td></tr>
+<tr><td>IFA（逆 F アンテナ）</td><td>モノポールを折り曲げ短絡点を加えた形。小型で整合しやすい</td><td>2.4GHz の Wi-Fi／BLE で最も一般的</td></tr>
+<tr><td>メアンダ</td><td>パターンを蛇行させて全長を短縮。効率と帯域は低下する</td><td>サブギガ帯（LoRa など）でスペースが限られる場合</td></tr>
+<tr><td>パッチ</td><td>指向性があり利得が高い。しっかりしたグラウンド面が必要</td><td>指向性通信、GPS、高い周波数帯</td></tr>
+</table></div>
+<p>周波数が低いほどアンテナは大きくなります。920MHz では 1/4 波長が約 8cm になるため、小型製品ではメアンダ設計や外付けアンテナが必要になることが多くあります。</p>
+
+<h2 id="layout">2. レイアウトの注意点</h2>
+<ul>
+<li><b>クリアランス（キープアウト）：</b>アンテナの下や周囲は、すべての層で銅箔もパターンも配置しない。最も多いミスです。</li>
+<li><b>グラウンド面の大きさ：</b>モノポール系のアンテナはグラウンド面を片側の素子として利用します。グラウンド面が小さすぎると周波数や効率がずれます。</li>
+<li><b>配置：</b>アンテナは基板の端に置き、電池、LCD、金属筐体、高速デジタル信号から離します。</li>
+<li><b>整合回路を用意しておく：</b>給電点に π 型整合回路（部品3個分）のパッドを用意します。初版は 0Ω 抵抗だけでも、後から調整できる余地を残せます。</li>
+</ul>
+
+<h2 id="matching">3. ネットワークアナライザで整合を取る</h2>
+<p>アンテナ設計の最後の工程は実機での調整です。ネットワークアナライザで S11（反射係数）を測定し、目標の周波数帯で十分に整合が取れているかを確認します：</p>
+<ul>
+<li>一般的な目安は S11 が −10dB 以下（VSWR 約2以下）です。</li>
+<li>まず共振周波数の位置を確認し、高すぎる・低すぎる場合は整合回路のインダクタやコンデンサの値で補正します。</li>
+<li><b>必ず「完成品の状態」で測定</b>してください。筐体や電池を取り付け、手で持った状態も再現しなければ、参考になるデータは得られません。</li>
+</ul>
+<figure><img src="../../assets/img/p8.webp" alt="ネットワークアナライザで S11 を測定し、共振周波数と整合状態を確認（イメージ）" width="900" height="576" loading="lazy" decoding="async"><figcaption>ネットワークアナライザで S11 を測定し、共振周波数と整合状態を確認（イメージ）</figcaption></figure>
+
+<h2 id="tip">4. 外付けアンテナやモジュールを選ぶべきケース</h2>
+<p>金属筐体の製品、長距離通信が必要な製品、またはスケジュールに余裕がなく認証のリスクを避けたい場合は、実績のある外付けアンテナやアンテナ内蔵モジュールのほうが結果的に有利なことがよくあります。製品の条件に合わせて最適な方法をご提案します。</p>
+<div class="callout"><b>既存製品の受信不良でお困りですか？</b>製品全体を再設計することなく、アンテナの診断と整合調整をスポットでお受けします。<a href="../contact.html?subject=support&amp;ref=アンテナ診断と整合調整">お問い合わせ</a></div>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:48px 0 24px">
+    <p class="muted">本記事は八麟光電の開発チームがまとめた一般的な技術解説です。実際の設計は製品の条件と最新の法規に基づいてご判断ください。関連サービス：<a href="../../ja/services/rf-antenna.html">RF アンテナ設計</a></p>
+  </article>
+</div></section>
+<section class="soft"><div class="wrap"><div class="sec-head"><h2>関連記事</h2></div>
+<div class="grid g3"><a class="card reveal" href="../../ja/insights/lora-taiwan-as923.html">
+  <div class="media"><img src="../../assets/img/lora-chip.webp" alt="LoRa の周波数はどう選ぶ？AS923 と SF・BW の設計ポイント" width="900" height="584" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">LoRa 無線通信</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>LoRa の周波数はどう選ぶ？AS923 と SF・BW の設計ポイント</h3><p>台湾と日本の LoRa は 920MHz 帯（AS923）を使用します。周波数、拡散率（SF）、帯域幅（BW）と、通信距離・電池寿命のトレードオフを整理しました。</p><span class="more arrow">記事を読む </span></div>
+</a><a class="card reveal" href="../../ja/insights/esp32-low-power.html">
+  <div class="media"><img src="../../assets/img/esp32.webp" alt="ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴" width="900" height="752" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">組込みシステム</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴</h3><p>ESP32 チップのディープスリープ電流は µA レベルまで下がりますが、実測では数 mA という製品も少なくありません。原因の多くはチップではなく周辺回路にあります。</p><span class="more arrow">記事を読む </span></div>
+</a><a class="card reveal" href="../../ja/insights/ai-vision-inspection.html">
+  <div class="media"><img src="../../assets/img/p3.webp" alt="AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで" width="900" height="900" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">AI 画像認識</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで</h3><p>AI 外観検査の成否を分けるのは、モデルよりも照明、データ、ラインへの統合です。AI 画像検査を導入するための7つのステップをまとめました。</p><span class="more arrow">記事を読む </span></div>
+</a></div></div></section>
+<section class="cta-wrap"><div class="wrap"><div class="cta-box reveal">
+  <div><h2>プロジェクトのご相談はお気軽に</h2><p>エンジニアが直接お話を伺い、構想から量産までのご提案を無料でお届けします。</p></div>
+  <div class="actions"><a class="btn btn-primary" href="../../ja/contact.html">無料相談</a>
+  <a class="btn btn-ghost" href="tel:+886-932-830814"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg> +886-932-830814</a></div>
+</div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../ja/index.html"><img src="../../assets/img/logo.svg" alt="" width="42" height="42" loading="lazy">
+          <span class="brand-name"><b>八麟光電科技有限公司</b><small>BALIN OPTOELECTRONICS</small></span></a>
+        <p>台湾の AIoT スマート製品設計センター — 組込みシステム、AI 画像認識、LoRa／RF 無線通信、産業制御を、構想から量産までワンストップで。</p>
+      </div>
+      <div><h4>製品・サービス</h4><ul><li><a href="../../ja/services/embedded.html">組込みシステム</a></li><li><a href="../../ja/services/ai-vision.html">AI 画像認識</a></li><li><a href="../../ja/services/lora.html">LoRa 無線通信</a></li><li><a href="../../ja/services/rf-antenna.html">RF アンテナ設計</a></li><li><a href="../../ja/services/industrial.html">産業制御</a></li><li><a href="../../ja/services/odm.html">カスタム ODM</a></li></ul></div>
+      <div><h4>クイックリンク</h4><ul><li><a href="../../ja/about.html">会社概要</a></li><li><a href="../../ja/applications.html">導入事例・用途</a></li><li><a href="../../ja/demos.html">ライブデモ</a></li><li><a href="../../ja/insights/">技術コラム</a></li><li><a href="../../ja/support.html">技術サポート</a></li><li><a href="../../ja/contact.html">お問い合わせ</a></li></ul></div>
+      <div><h4>連絡先</h4><ul>
+        <li>台湾 台南市永康区永大路3段618巷12号1階</li>
+        <li>電話：<a href="tel:+886-932-830814">+886-932-830814</a></li>
+        <li>メール：<a href="mailto:bv6mk2002@gmail.com">bv6mk2002@gmail.com</a></li>
+        <li>月〜金 9:00〜18:00（台湾時間／日本時間 10:00〜19:00）</li>
+      </ul></div>
+    </div>
+    <div class="foot-langs"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg> <a href="../../insights/pcb-antenna-design.html" lang="zh-Hant-TW">繁體中文</a> · <a href="../../en/insights/pcb-antenna-design.html" lang="en">English</a> · <a href="../../ja/insights/pcb-antenna-design.html" lang="ja">日本語</a> · <a href="../../de/insights/pcb-antenna-design.html" lang="de">Deutsch</a> · <a href="../../zh-cn/insights/pcb-antenna-design.html" lang="zh-Hans-CN">简体中文</a></div>
+    <div class="foot-bottom">
+      <span>© 2026 八麟光電科技有限公司　統一番号 24406780</span>
+      <span><a href="../../ja/credits.html">画像の出典とライセンス</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/main.js?v=20261020" defer></script>
+</body>
+</html>

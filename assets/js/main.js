@@ -44,7 +44,8 @@
   if (links.length && window.HTMLDialogElement) {
     var dlg = document.createElement('dialog');
     dlg.className = 'lightbox';
-    dlg.innerHTML = '<button type="button" aria-label="關閉">×</button><img alt=""><p></p>';
+    dlg.innerHTML = '<button type="button">×</button><img alt=""><p></p>';
+    dlg.querySelector('button').setAttribute('aria-label', body.dataset.close || 'Close');
     document.body.appendChild(dlg);
     dlg.querySelector('button').addEventListener('click', function () { dlg.close(); });
     dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
@@ -60,17 +61,18 @@
     });
   }
 
-  // 聯絡表單：從網址帶入諮詢主題（contact.html?subject=技術文件索取）
+  // 聯絡表單：從網址帶入諮詢主題（contact.html?subject=support&ref=產品型錄）
+  // 介面文字由頁面的 data-* 屬性提供，各語言版本共用這支程式
   var form = document.getElementById('contact-form');
   if (!form) return;
   var params = new URLSearchParams(location.search);
   var subj = params.get('subject');
   if (subj) {
     var sel = form.querySelector('[name="諮詢主題"]');
-    var opt = Array.prototype.find.call(sel.options, function (o) { return o.value === subj; });
-    if (opt) sel.value = subj;
+    var opt = Array.prototype.find.call(sel.options, function (o) { return o.dataset.k === subj || o.value === subj; });
+    if (opt) sel.value = opt.value;
     var ref = params.get('ref');
-    if (ref) form.querySelector('[name="需求說明"]').value = '我想索取／了解：' + ref + '\n\n';
+    if (ref) form.querySelector('[name="需求說明"]').value = form.dataset.ref + ref + '\n\n';
   }
 
   var status = form.querySelector('.form-status');
@@ -81,8 +83,10 @@
     var data = {};
     new FormData(form).forEach(function (v, k) { data[k] = v; });
     if (data._honey) return;
-    data._subject = '官網諮詢：' + (data['諮詢主題'] || '');
-    btn.disabled = true; btn.textContent = '送出中…';
+    // 信件主旨一律中文；外語版加註訪客使用的語言
+    var lang = data['網站語言'];
+    data._subject = '官網諮詢：' + (data['諮詢主題'] || '') + (lang && lang !== '繁體中文' ? '（' + lang + '）' : '');
+    btn.disabled = true; btn.textContent = form.dataset.sending;
     status.hidden = true;
     fetch(form.action, {
       method: 'POST',
@@ -92,13 +96,14 @@
       if (!r.ok) throw new Error(r.status);
       form.reset();
       status.className = 'form-status ok';
-      status.textContent = '感謝您的來信！我們已收到訊息，將於 1 個工作天內與您聯繫。';
+      status.textContent = form.dataset.ok;
     }).catch(function () {
       status.className = 'form-status err';
-      status.innerHTML = '送出失敗，可能是網路問題。請直接來信 <a href="mailto:' + form.dataset.email + '">' + form.dataset.email + '</a> 或致電 ' + form.dataset.phone + '。';
+      var mail = '<a href="mailto:' + form.dataset.email + '">' + form.dataset.email + '</a>';
+      status.innerHTML = form.dataset.err.replace('{email}', mail).replace('{phone}', form.dataset.phone);
     }).finally(function () {
       status.hidden = false;
-      btn.disabled = false; btn.textContent = '送出諮詢';
+      btn.disabled = false; btn.textContent = form.dataset.submit;
     });
   });
 })();

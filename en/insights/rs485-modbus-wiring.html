@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RS485 / Modbus RTU wiring and troubleshooting: 8 common causes of unstable links｜Balin Optoelectronics Co., Ltd.</title>
+<meta name="description" content="RS485 is the most common interface on the factory floor — and a frequent source of communication problems. A checklist for wiring, termination, biasing and Modbus settings.">
+<link rel="canonical" href="https://www.balinedge.com.tw/en/insights/rs485-modbus-wiring.html">
+<link rel="alternate" hreflang="zh-TW" href="https://www.balinedge.com.tw/insights/rs485-modbus-wiring.html">
+<link rel="alternate" hreflang="en" href="https://www.balinedge.com.tw/en/insights/rs485-modbus-wiring.html">
+<link rel="alternate" hreflang="ja" href="https://www.balinedge.com.tw/ja/insights/rs485-modbus-wiring.html">
+<link rel="alternate" hreflang="de" href="https://www.balinedge.com.tw/de/insights/rs485-modbus-wiring.html">
+<link rel="alternate" hreflang="zh-CN" href="https://www.balinedge.com.tw/zh-cn/insights/rs485-modbus-wiring.html">
+<link rel="alternate" hreflang="x-default" href="https://www.balinedge.com.tw/en/insights/rs485-modbus-wiring.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Balin Optoelectronics Co., Ltd.">
+<meta property="og:title" content="RS485 / Modbus RTU wiring and troubleshooting: 8 common causes of unstable links｜Balin Optoelectronics Co., Ltd.">
+<meta property="og:description" content="RS485 is the most common interface on the factory floor — and a frequent source of communication problems. A checklist for wiring, termination, biasing and Modbus settings.">
+<meta property="og:url" content="https://www.balinedge.com.tw/en/insights/rs485-modbus-wiring.html">
+<meta property="og:image" content="https://www.balinedge.com.tw/assets/img/p9.webp">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#061423">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261020">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.balinedge.com.tw/en/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.balinedge.com.tw/en/insights/"}, {"@type": "ListItem", "position": 3, "name": "RS485 / Modbus RTU wiring and troubleshooting: 8 common causes of unstable links", "item": "https://www.balinedge.com.tw/en/insights/rs485-modbus-wiring.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "RS485 / Modbus RTU wiring and troubleshooting: 8 common causes of unstable links", "description": "RS485 is the most common interface on the factory floor — and a frequent source of communication problems. A checklist for wiring, termination, biasing and Modbus settings.", "datePublished": "2026-09-25", "inLanguage": "en", "image": "https://www.balinedge.com.tw/assets/img/p9.webp", "author": {"@type": "Organization", "name": "Balin Optoelectronics Co., Ltd."}, "publisher": {"@id": "https://www.balinedge.com.tw/#org"}}</script>
+</head>
+<body data-close="Close">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../en/index.html" aria-label="Balin Optoelectronics Co., Ltd.">
+      <img src="../../assets/img/logo.svg" alt="" width="42" height="42">
+      <span class="brand-name"><b>BALIN</b><small>OPTOELECTRONICS</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Main menu" aria-expanded="false"><span></span></button>
+    <nav class="nav" aria-label="Main menu">
+      <a href="../../en/about.html">About</a><div class="dd"><button type="button" aria-expanded="false">Services</button><div class="dd-menu"><a href="../../en/services/embedded.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5"/></svg><span><b>Embedded Systems</b><small>Circuit design, firmware and drivers on STM32, ESP32, PIC and ARM Linux platforms.</small></span></a><a href="../../en/services/ai-vision.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span><b>AI Vision</b><small>YOLO object detection, OCR and edge AI deployment for production lines and field sites.</small></span></a><a href="../../en/services/lora.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19v-3M10 19v-7M15 19v-11M20 19V4"/></svg><span><b>LoRa Wireless</b><small>SX12xx RF design and LoRaWAN networks — kilometer range on very little power.</small></span></a><a href="../../en/services/rf-antenna.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2"/><path d="M12 8v13M7.5 11a6.5 6.5 0 0 1 9 0M4.6 8.2a10.5 10.5 0 0 1 14.8 0"/></svg><span><b>RF Antenna Design</b><small>Custom PCB, IFA and patch antennas, tuned with a vector network analyzer.</small></span></a><a href="../../en/services/industrial.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span><b>Industrial Automation</b><small>PLC, RS485 / Modbus, CAN and MQTT — connecting machines and production lines.</small></span></a><a href="../../en/services/odm.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 8v8l8 4 8-4V8M12 12v8"/></svg><span><b>Custom ODM</b><small>PCB layout, prototypes, pilot runs and mass production, plus testing and certification support.</small></span></a><a class="all" href="../../en/services/">All services →</a></div></div><a href="../../en/applications.html">Applications</a><a href="../../en/demos.html">Live Demos</a><a href="../../en/insights/" aria-current="page">Insights</a><a href="../../en/support.html">Support</a>
+      <div class="dd lang-dd"><button type="button" aria-expanded="false" aria-label="Change language"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>EN</span></button><div class="dd-menu"><a href="../../insights/rs485-modbus-wiring.html" lang="zh-Hant-TW" hreflang="zh-TW"><b>繁體中文</b></a><a href="../../en/insights/rs485-modbus-wiring.html" lang="en" hreflang="en" aria-current="true"><b>English</b></a><a href="../../ja/insights/rs485-modbus-wiring.html" lang="ja" hreflang="ja"><b>日本語</b></a><a href="../../de/insights/rs485-modbus-wiring.html" lang="de" hreflang="de"><b>Deutsch</b></a><a href="../../zh-cn/insights/rs485-modbus-wiring.html" lang="zh-Hans-CN" hreflang="zh-CN"><b>简体中文</b></a></div></div>
+      <a class="btn btn-primary btn-sm" href="../../en/contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../../en/index.html">Home</a><span>/</span><a href="./">Insights</a></nav>
+  <div class="post-meta" style="color:#9DB1C8"><span class="pill">Industrial Automation</span><time datetime="2026-09-25">2026.09.25</time><span>Balin R&D team</span></div>
+  <h1>RS485 / Modbus RTU wiring and troubleshooting: 8 common causes of unstable links</h1><p>RS485 is the most common interface on the factory floor — and a frequent source of communication problems. A checklist for wiring, termination, biasing and Modbus settings.</p>
+</div></section>
+<section><div class="wrap">
+  <article class="article">
+    <figure style="margin-top:0"><img src="../../assets/img/p9.webp" alt="RS485 / Modbus RTU wiring and troubleshooting: 8 common causes of unstable links" width="900" height="506" fetchpriority="high"><figcaption>Illustrative photo</figcaption></figure>
+    <nav class="toc" aria-label="Contents"><b>Contents</b><ol><li><a href="#wiring">Wiring</a></li><li><a href="#modbus">Modbus settings</a></li><li><a href="#tools">Debugging tools</a></li></ol></nav>
+    
+<p>RS485 uses differential signaling, is robust against noise and supports long, multi-drop links. Together with Modbus RTU it is standard equipment on industrial devices. But links that work only some of the time are also very common. Here is our troubleshooting checklist.</p>
+
+<h2 id="wiring">Wiring</h2>
+<h3>1. The topology is not a daisy chain</h3>
+<p>RS485 should be wired as a <b>daisy chain</b>, device to device. Avoid star topologies and long stubs, which cause reflections and data errors.</p>
+<h3>2. No twisted pair</h3>
+<p>A and B must run on the same twisted pair, ideally in shielded communication cable, with the shield grounded appropriately for the site.</p>
+<h3>3. Wrong termination</h3>
+<p>Fit a termination resistor matching the cable's characteristic impedance (typically 120 Ω) at <b>both ends</b> of the bus only. Do not add more on devices in the middle — too many attenuate the signal.</p>
+<h3>4. No bias resistors</h3>
+<p>When no device is transmitting, the bus floats and noise can be read as data. Add fail-safe biasing resistors to the bus or use transceivers with built-in fail-safe.</p>
+<h3>5. No common ground reference</h3>
+<p>Although RS485 is differential, transceivers have a limited common-mode range. Large ground potential differences between devices cause errors or even damage — run a signal ground wire or use isolated transceivers.</p>
+
+<h2 id="modbus">Modbus settings</h2>
+<h3>6. Mismatched serial settings</h3>
+<p>Baud rate, data bits, parity (none / even / odd) and stop bits must be identical on all devices.</p>
+<h3>7. Duplicate slave IDs or wrong timing</h3>
+<p>Slave IDs on the same bus must be unique. Modbus RTU uses a silent interval of <b>at least 3.5 character times</b> to mark the end of a frame; if the master polls too fast or a device responds slowly, increase the timeout and polling interval.</p>
+<h3>8. Inconsistent A / B labeling</h3>
+<p>Manufacturers do not label A / B (or D+ / D−) consistently. If nothing communicates at all, try swapping the A and B wires first.</p>
+
+<h2 id="tools">Debugging tools</h2>
+<ul>
+<li>Use a USB-to-RS485 adapter and a Modbus master test tool to check each device's response one by one.</li>
+<li>Look at the differential waveform on an oscilloscope for reflections, ringing and noise.</li>
+<li>Check whether register addresses start at 0 or 1 — a common reason for values being off by one register.</li>
+</ul>
+<div class="callout"><b>Want to bring your RS485 devices to the cloud?</b> We develop Modbus-to-MQTT gateways and live monitoring dashboards. <a href="../demos.html">See the demos</a></div>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:48px 0 24px">
+    <p class="muted">Written by the Balin R&D team as general technical guidance. Always check your specific product requirements and the latest regulations. Related service: <a href="../../en/services/industrial.html">Industrial Automation</a></p>
+  </article>
+</div></section>
+<section class="soft"><div class="wrap"><div class="sec-head"><h2>Further reading</h2></div>
+<div class="grid g3"><a class="card reveal" href="../../en/insights/lora-taiwan-as923.html">
+  <div class="media"><img src="../../assets/img/lora-chip.webp" alt="LoRa band planning: AS923 in Taiwan and how to choose SF and BW" width="900" height="584" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">LoRa Wireless</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>LoRa band planning: AS923 in Taiwan and how to choose SF and BW</h3><p>Taiwan uses 920–925 MHz (AS923) for LoRa. This article explains the trade-offs between band, spreading factor (SF), bandwidth (BW), range and battery life — and what changes in other regions.</p><span class="more arrow">Read article </span></div>
+</a><a class="card reveal" href="../../en/insights/pcb-antenna-design.html">
+  <div class="media"><img src="../../assets/img/p7.webp" alt="Choosing a PCB antenna: IFA, meander, patch and matching" width="900" height="525" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">RF Antenna Design</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>Choosing a PCB antenna: IFA, meander, patch and matching</h3><p>PCB antennas are cheap and need no assembly, but they are very sensitive to board space and nearby components. We compare common PCB antenna types and explain how to match them with a network analyzer.</p><span class="more arrow">Read article </span></div>
+</a><a class="card reveal" href="../../en/insights/esp32-low-power.html">
+  <div class="media"><img src="../../assets/img/esp32.webp" alt="Low-power ESP32 design for battery products: deep sleep in practice" width="900" height="752" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">Embedded Systems</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>Low-power ESP32 design for battery products: deep sleep in practice</h3><p>The ESP32 chip can draw only microamps in deep sleep, yet many products measure several milliamps. The cause is usually the surrounding circuitry, not the chip itself.</p><span class="more arrow">Read article </span></div>
+</a></div></div></section>
+<section class="cta-wrap"><div class="wrap"><div class="cta-box reveal">
+  <div><h2>Ready to start your project?</h2><p>Tell our engineers what you want to build and get a free proposal covering everything from concept to mass production.</p></div>
+  <div class="actions"><a class="btn btn-primary" href="../../en/contact.html">Free consultation</a>
+  <a class="btn btn-ghost" href="tel:+886-932-830814"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg> +886-932-830814</a></div>
+</div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../en/index.html"><img src="../../assets/img/logo.svg" alt="" width="42" height="42" loading="lazy">
+          <span class="brand-name"><b>Balin Optoelectronics Co., Ltd.</b><small>BALIN OPTOELECTRONICS</small></span></a>
+        <p>AIoT product design house in Taiwan — embedded systems, AI vision, LoRa / RF wireless and industrial automation, from concept to mass production.</p>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="../../en/services/embedded.html">Embedded Systems</a></li><li><a href="../../en/services/ai-vision.html">AI Vision</a></li><li><a href="../../en/services/lora.html">LoRa Wireless</a></li><li><a href="../../en/services/rf-antenna.html">RF Antenna Design</a></li><li><a href="../../en/services/industrial.html">Industrial Automation</a></li><li><a href="../../en/services/odm.html">Custom ODM</a></li></ul></div>
+      <div><h4>Quick links</h4><ul><li><a href="../../en/about.html">About</a></li><li><a href="../../en/applications.html">Applications</a></li><li><a href="../../en/demos.html">Live Demos</a></li><li><a href="../../en/insights/">Insights</a></li><li><a href="../../en/support.html">Support</a></li><li><a href="../../en/contact.html">Contact</a></li></ul></div>
+      <div><h4>Contact</h4><ul>
+        <li>1F., No. 12, Ln. 618, Sec. 3, Yongda Rd., Yongkang Dist., Tainan City, Taiwan</li>
+        <li>Phone: <a href="tel:+886-932-830814">+886-932-830814</a></li>
+        <li>Email: <a href="mailto:bv6mk2002@gmail.com">bv6mk2002@gmail.com</a></li>
+        <li>Mon–Fri 09:00–18:00 (Taiwan time, GMT+8)</li>
+      </ul></div>
+    </div>
+    <div class="foot-langs"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg> <a href="../../insights/rs485-modbus-wiring.html" lang="zh-Hant-TW">繁體中文</a> · <a href="../../en/insights/rs485-modbus-wiring.html" lang="en">English</a> · <a href="../../ja/insights/rs485-modbus-wiring.html" lang="ja">日本語</a> · <a href="../../de/insights/rs485-modbus-wiring.html" lang="de">Deutsch</a> · <a href="../../zh-cn/insights/rs485-modbus-wiring.html" lang="zh-Hans-CN">简体中文</a></div>
+    <div class="foot-bottom">
+      <span>© 2026 Balin Optoelectronics Co., Ltd.　Tax ID 24406780</span>
+      <span><a href="../../en/credits.html">Image credits</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/main.js?v=20261020" defer></script>
+</body>
+</html>

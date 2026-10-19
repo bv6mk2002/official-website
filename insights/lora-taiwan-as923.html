@@ -6,6 +6,12 @@
 <title>台灣 LoRa 頻段怎麼選？AS923 與 SF、BW 參數設計重點｜八麟光電科技有限公司</title>
 <meta name="description" content="LoRa 在台灣使用 920–925 MHz（AS923）。本文整理頻段、擴頻因子（SF）、頻寬（BW）與傳輸距離、電池壽命之間的取捨。">
 <link rel="canonical" href="https://www.balinedge.com.tw/insights/lora-taiwan-as923.html">
+<link rel="alternate" hreflang="zh-TW" href="https://www.balinedge.com.tw/insights/lora-taiwan-as923.html">
+<link rel="alternate" hreflang="en" href="https://www.balinedge.com.tw/en/insights/lora-taiwan-as923.html">
+<link rel="alternate" hreflang="ja" href="https://www.balinedge.com.tw/ja/insights/lora-taiwan-as923.html">
+<link rel="alternate" hreflang="de" href="https://www.balinedge.com.tw/de/insights/lora-taiwan-as923.html">
+<link rel="alternate" hreflang="zh-CN" href="https://www.balinedge.com.tw/zh-cn/insights/lora-taiwan-as923.html">
+<link rel="alternate" hreflang="x-default" href="https://www.balinedge.com.tw/en/insights/lora-taiwan-as923.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="八麟光電科技有限公司">
 <meta property="og:title" content="台灣 LoRa 頻段怎麼選？AS923 與 SF、BW 參數設計重點｜八麟光電科技有限公司">
@@ -17,26 +23,24 @@
 <meta name="theme-color" content="#061423">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-<link rel="alternate" hreflang="zh-Hant-TW" href="https://www.balinedge.com.tw/">
-<link rel="alternate" hreflang="en" href="https://www.balinedge.com.tw/en/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=20260925">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261020">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://www.balinedge.com.tw/"}, {"@type": "ListItem", "position": 2, "name": "技術專欄", "item": "https://www.balinedge.com.tw/insights/"}, {"@type": "ListItem", "position": 3, "name": "台灣 LoRa 頻段怎麼選？AS923 與 SF、BW 參數設計重點", "item": "https://www.balinedge.com.tw/insights/lora-taiwan-as923.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "台灣 LoRa 頻段怎麼選？AS923 與 SF、BW 參數設計重點", "description": "LoRa 在台灣使用 920–925 MHz（AS923）。本文整理頻段、擴頻因子（SF）、頻寬（BW）與傳輸距離、電池壽命之間的取捨。", "datePublished": "2026-09-25", "inLanguage": "zh-Hant-TW", "image": "https://www.balinedge.com.tw/assets/img/lora-chip.webp", "author": {"@type": "Organization", "name": "八麟光電科技有限公司"}, "publisher": {"@id": "https://www.balinedge.com.tw/#org"}}</script>
 </head>
-<body>
+<body data-close="關閉">
 <a class="skip" href="#main">跳到主要內容</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="../index.html" aria-label="八麟光電科技有限公司 首頁">
+    <a class="brand" href="../index.html" aria-label="八麟光電科技有限公司">
       <img src="../assets/img/logo.svg" alt="" width="42" height="42">
       <span class="brand-name"><b>八麟光電科技</b><small>BALIN OPTOELECTRONICS</small></span>
     </a>
-    <button class="menu-toggle" type="button" aria-label="開啟選單" aria-expanded="false"><span></span></button>
+    <button class="menu-toggle" type="button" aria-label="主選單" aria-expanded="false"><span></span></button>
     <nav class="nav" aria-label="主選單">
       <a href="../about.html">關於我們</a><div class="dd"><button type="button" aria-expanded="false">產品與服務</button><div class="dd-menu"><a href="../services/embedded.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5"/></svg><span><b>嵌入式系統</b><small>STM32、ESP32、PIC、ARM Linux 平台的電路設計、韌體與驅動開發。</small></span></a><a href="../services/ai-vision.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span><b>AI 視覺辨識</b><small>YOLO 物件偵測、OCR 文字辨識與 Edge AI 部署，落地產線與場域。</small></span></a><a href="../services/lora.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19v-3M10 19v-7M15 19v-11M20 19V4"/></svg><span><b>LoRa 無線通訊</b><small>SX12xx 射頻設計、LoRaWAN 組網，公里級距離、低功耗長續航。</small></span></a><a href="../services/rf-antenna.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2"/><path d="M12 8v13M7.5 11a6.5 6.5 0 0 1 9 0M4.6 8.2a10.5 10.5 0 0 1 14.8 0"/></svg><span><b>RF 天線設計</b><small>PCB、IFA、Patch 天線客製與網路分析儀阻抗匹配調校。</small></span></a><a href="../services/industrial.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span><b>工業控制</b><small>PLC、RS485／Modbus、CAN 與 MQTT，打通設備資料與產線自動化。</small></span></a><a href="../services/odm.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 8v8l8 4 8-4V8M12 12v8"/></svg><span><b>客製化 ODM</b><small>PCB Layout、打樣、試產到量產，並協助產品測試與法規認證。</small></span></a><a class="all" href="../services/">查看全部產品與服務 →</a></div></div><a href="../applications.html">應用場域</a><a href="../demos.html">即時展示</a><a href="../insights/" aria-current="page">技術專欄</a><a href="../support.html">技術支援</a>
-      <a class="lang" href="../en/" lang="en">EN</a>
+      <div class="dd lang-dd"><button type="button" aria-expanded="false" aria-label="切換語言"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>繁中</span></button><div class="dd-menu"><a href="../insights/lora-taiwan-as923.html" lang="zh-Hant-TW" hreflang="zh-TW" aria-current="true"><b>繁體中文</b></a><a href="../en/insights/lora-taiwan-as923.html" lang="en" hreflang="en"><b>English</b></a><a href="../ja/insights/lora-taiwan-as923.html" lang="ja" hreflang="ja"><b>日本語</b></a><a href="../de/insights/lora-taiwan-as923.html" lang="de" hreflang="de"><b>Deutsch</b></a><a href="../zh-cn/insights/lora-taiwan-as923.html" lang="zh-Hans-CN" hreflang="zh-CN"><b>简体中文</b></a></div></div>
       <a class="btn btn-primary btn-sm" href="../contact.html">聯絡我們</a>
     </nav>
   </div>
@@ -50,7 +54,7 @@
 <section><div class="wrap">
   <article class="article">
     <figure style="margin-top:0"><img src="../assets/img/lora-chip.webp" alt="台灣 LoRa 頻段怎麼選？AS923 與 SF、BW 參數設計重點" width="900" height="584" fetchpriority="high"><figcaption>示意圖</figcaption></figure>
-    <nav class="toc" aria-label="文章目錄"><b>本文目錄</b><ol><li><a href="#band">一、台灣該用哪個頻段？</a></li><li><a href="#sf">二、SF（擴頻因子）：距離與速度的取捨</a></li><li><a href="#bw">三、BW（頻寬）與封包長度</a></li><li><a href="#antenna">四、影響距離最大的其實是天線與安裝位置</a></li><li><a href="#lorawan">五、點對點還是 LoRaWAN？</a></li></ol></nav>
+    <nav class="toc" aria-label="本文目錄"><b>本文目錄</b><ol><li><a href="#band">一、台灣該用哪個頻段？</a></li><li><a href="#sf">二、SF（擴頻因子）：距離與速度的取捨</a></li><li><a href="#bw">三、BW（頻寬）與封包長度</a></li><li><a href="#antenna">四、影響距離最大的其實是天線與安裝位置</a></li><li><a href="#lorawan">五、點對點還是 LoRaWAN？</a></li></ol></nav>
     
 <p>LoRa 能以極低功耗傳送數公里，是廣域感測的熱門選擇。但同樣一顆 SX12xx 晶片，參數設定不同，傳輸距離、資料量與電池壽命可能差上數倍。以下整理我們在專案中最常被問到的幾個問題。</p>
 
@@ -94,15 +98,15 @@
   </article>
 </div></section>
 <section class="soft"><div class="wrap"><div class="sec-head"><h2>延伸閱讀</h2></div>
-<div class="grid g3"><a class="card reveal" href="pcb-antenna-design.html">
+<div class="grid g3"><a class="card reveal" href="../insights/pcb-antenna-design.html">
   <div class="media"><img src="../assets/img/p7.webp" alt="PCB 天線怎麼選？IFA、Meander、Patch 與匹配調校" width="900" height="525" loading="lazy" decoding="async"></div>
   <div class="body"><div class="post-meta"><span class="pill">RF 天線設計</span><time datetime="2026-09-25">2026.09.25</time></div>
   <h3>PCB 天線怎麼選？IFA、Meander、Patch 與匹配調校</h3><p>PCB 天線成本低、免組裝，但對板面空間與周邊元件非常敏感。本文比較常見 PCB 天線的特性，並說明如何用網路分析儀完成匹配。</p><span class="more arrow">閱讀全文 </span></div>
-</a><a class="card reveal" href="esp32-low-power.html">
+</a><a class="card reveal" href="../insights/esp32-low-power.html">
   <div class="media"><img src="../assets/img/esp32.webp" alt="ESP32 電池產品低功耗設計：Deep-sleep 實務與常見陷阱" width="900" height="752" loading="lazy" decoding="async"></div>
   <div class="body"><div class="post-meta"><span class="pill">嵌入式系統</span><time datetime="2026-09-25">2026.09.25</time></div>
   <h3>ESP32 電池產品低功耗設計：Deep-sleep 實務與常見陷阱</h3><p>ESP32 晶片 Deep-sleep 電流可低到微安培等級，但很多產品實測卻是好幾 mA。問題通常出在周邊電路，而不是晶片本身。</p><span class="more arrow">閱讀全文 </span></div>
-</a><a class="card reveal" href="ai-vision-inspection.html">
+</a><a class="card reveal" href="../insights/ai-vision-inspection.html">
   <div class="media"><img src="../assets/img/p3.webp" alt="AI 視覺瑕疵檢測導入指南：從打光、資料標註到產線整合" width="900" height="900" loading="lazy" decoding="async"></div>
   <div class="body"><div class="post-meta"><span class="pill">AI 視覺辨識</span><time datetime="2026-09-25">2026.09.25</time></div>
   <h3>AI 視覺瑕疵檢測導入指南：從打光、資料標註到產線整合</h3><p>AI 瑕疵檢測成敗的關鍵往往不在模型，而在打光、資料與產線整合。本文整理導入 AI 視覺檢測的七個步驟。</p><span class="more arrow">閱讀全文 </span></div>
@@ -122,27 +126,21 @@
         <p>AIoT 智慧產品設計中心 — 嵌入式系統、AI 視覺辨識、LoRa／RF 無線通訊與工業控制整合，從概念到量產一條龍完成。</p>
       </div>
       <div><h4>產品與服務</h4><ul><li><a href="../services/embedded.html">嵌入式系統</a></li><li><a href="../services/ai-vision.html">AI 視覺辨識</a></li><li><a href="../services/lora.html">LoRa 無線通訊</a></li><li><a href="../services/rf-antenna.html">RF 天線設計</a></li><li><a href="../services/industrial.html">工業控制</a></li><li><a href="../services/odm.html">客製化 ODM</a></li></ul></div>
-      <div><h4>快速連結</h4><ul>
-        <li><a href="../about.html">關於我們</a></li>
-        <li><a href="../applications.html">應用場域</a></li>
-        <li><a href="../demos.html">即時展示</a></li>
-        <li><a href="../insights/">技術專欄</a></li>
-        <li><a href="../support.html">技術支援</a></li>
-        <li><a href="../contact.html">聯絡我們</a></li>
-      </ul></div>
-      <div><h4>聯絡方式</h4><ul>
+      <div><h4>快速連結</h4><ul><li><a href="../about.html">關於我們</a></li><li><a href="../applications.html">應用場域</a></li><li><a href="../demos.html">即時展示</a></li><li><a href="../insights/">技術專欄</a></li><li><a href="../support.html">技術支援</a></li><li><a href="../contact.html">聯絡我們</a></li></ul></div>
+      <div><h4>聯絡資訊</h4><ul>
         <li>臺南市永康區龍埔里永大路3段618巷12號1樓</li>
         <li>電話：<a href="tel:+886-932-830814">0932-830814</a></li>
         <li>信箱：<a href="mailto:bv6mk2002@gmail.com">bv6mk2002@gmail.com</a></li>
         <li>週一至週五 09:00–18:00</li>
       </ul></div>
     </div>
+    <div class="foot-langs"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg> <a href="../insights/lora-taiwan-as923.html" lang="zh-Hant-TW">繁體中文</a> · <a href="../en/insights/lora-taiwan-as923.html" lang="en">English</a> · <a href="../ja/insights/lora-taiwan-as923.html" lang="ja">日本語</a> · <a href="../de/insights/lora-taiwan-as923.html" lang="de">Deutsch</a> · <a href="../zh-cn/insights/lora-taiwan-as923.html" lang="zh-Hans-CN">简体中文</a></div>
     <div class="foot-bottom">
-      <span>© 2026 八麟光電科技有限公司 BALIN OPTOELECTRONICS CO., LTD.　統一編號 24406780</span>
+      <span>© 2026 八麟光電科技有限公司　統一編號 24406780</span>
       <span><a href="../credits.html">圖片來源與授權</a></span>
     </div>
   </div>
 </footer>
-<script src="../assets/js/main.js?v=20260925" defer></script>
+<script src="../assets/js/main.js?v=20261020" defer></script>
 </body>
 </html>

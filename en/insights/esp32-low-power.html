@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Low-power ESP32 design for battery products: deep sleep in practice｜Balin Optoelectronics Co., Ltd.</title>
+<meta name="description" content="The ESP32 chip can draw only microamps in deep sleep, yet many products measure several milliamps. The cause is usually the surrounding circuitry, not the chip itself.">
+<link rel="canonical" href="https://www.balinedge.com.tw/en/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="zh-TW" href="https://www.balinedge.com.tw/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="en" href="https://www.balinedge.com.tw/en/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="ja" href="https://www.balinedge.com.tw/ja/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="de" href="https://www.balinedge.com.tw/de/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="zh-CN" href="https://www.balinedge.com.tw/zh-cn/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="x-default" href="https://www.balinedge.com.tw/en/insights/esp32-low-power.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Balin Optoelectronics Co., Ltd.">
+<meta property="og:title" content="Low-power ESP32 design for battery products: deep sleep in practice｜Balin Optoelectronics Co., Ltd.">
+<meta property="og:description" content="The ESP32 chip can draw only microamps in deep sleep, yet many products measure several milliamps. The cause is usually the surrounding circuitry, not the chip itself.">
+<meta property="og:url" content="https://www.balinedge.com.tw/en/insights/esp32-low-power.html">
+<meta property="og:image" content="https://www.balinedge.com.tw/assets/img/esp32.webp">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#061423">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261020">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.balinedge.com.tw/en/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.balinedge.com.tw/en/insights/"}, {"@type": "ListItem", "position": 3, "name": "Low-power ESP32 design for battery products: deep sleep in practice", "item": "https://www.balinedge.com.tw/en/insights/esp32-low-power.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Low-power ESP32 design for battery products: deep sleep in practice", "description": "The ESP32 chip can draw only microamps in deep sleep, yet many products measure several milliamps. The cause is usually the surrounding circuitry, not the chip itself.", "datePublished": "2026-09-25", "inLanguage": "en", "image": "https://www.balinedge.com.tw/assets/img/esp32.webp", "author": {"@type": "Organization", "name": "Balin Optoelectronics Co., Ltd."}, "publisher": {"@id": "https://www.balinedge.com.tw/#org"}}</script>
+</head>
+<body data-close="Close">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../en/index.html" aria-label="Balin Optoelectronics Co., Ltd.">
+      <img src="../../assets/img/logo.svg" alt="" width="42" height="42">
+      <span class="brand-name"><b>BALIN</b><small>OPTOELECTRONICS</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Main menu" aria-expanded="false"><span></span></button>
+    <nav class="nav" aria-label="Main menu">
+      <a href="../../en/about.html">About</a><div class="dd"><button type="button" aria-expanded="false">Services</button><div class="dd-menu"><a href="../../en/services/embedded.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5"/></svg><span><b>Embedded Systems</b><small>Circuit design, firmware and drivers on STM32, ESP32, PIC and ARM Linux platforms.</small></span></a><a href="../../en/services/ai-vision.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span><b>AI Vision</b><small>YOLO object detection, OCR and edge AI deployment for production lines and field sites.</small></span></a><a href="../../en/services/lora.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19v-3M10 19v-7M15 19v-11M20 19V4"/></svg><span><b>LoRa Wireless</b><small>SX12xx RF design and LoRaWAN networks — kilometer range on very little power.</small></span></a><a href="../../en/services/rf-antenna.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2"/><path d="M12 8v13M7.5 11a6.5 6.5 0 0 1 9 0M4.6 8.2a10.5 10.5 0 0 1 14.8 0"/></svg><span><b>RF Antenna Design</b><small>Custom PCB, IFA and patch antennas, tuned with a vector network analyzer.</small></span></a><a href="../../en/services/industrial.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span><b>Industrial Automation</b><small>PLC, RS485 / Modbus, CAN and MQTT — connecting machines and production lines.</small></span></a><a href="../../en/services/odm.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 8v8l8 4 8-4V8M12 12v8"/></svg><span><b>Custom ODM</b><small>PCB layout, prototypes, pilot runs and mass production, plus testing and certification support.</small></span></a><a class="all" href="../../en/services/">All services →</a></div></div><a href="../../en/applications.html">Applications</a><a href="../../en/demos.html">Live Demos</a><a href="../../en/insights/" aria-current="page">Insights</a><a href="../../en/support.html">Support</a>
+      <div class="dd lang-dd"><button type="button" aria-expanded="false" aria-label="Change language"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>EN</span></button><div class="dd-menu"><a href="../../insights/esp32-low-power.html" lang="zh-Hant-TW" hreflang="zh-TW"><b>繁體中文</b></a><a href="../../en/insights/esp32-low-power.html" lang="en" hreflang="en" aria-current="true"><b>English</b></a><a href="../../ja/insights/esp32-low-power.html" lang="ja" hreflang="ja"><b>日本語</b></a><a href="../../de/insights/esp32-low-power.html" lang="de" hreflang="de"><b>Deutsch</b></a><a href="../../zh-cn/insights/esp32-low-power.html" lang="zh-Hans-CN" hreflang="zh-CN"><b>简体中文</b></a></div></div>
+      <a class="btn btn-primary btn-sm" href="../../en/contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../../en/index.html">Home</a><span>/</span><a href="./">Insights</a></nav>
+  <div class="post-meta" style="color:#9DB1C8"><span class="pill">Embedded Systems</span><time datetime="2026-09-25">2026.09.25</time><span>Balin R&D team</span></div>
+  <h1>Low-power ESP32 design for battery products: deep sleep in practice</h1><p>The ESP32 chip can draw only microamps in deep sleep, yet many products measure several milliamps. The cause is usually the surrounding circuitry, not the chip itself.</p>
+</div></section>
+<section><div class="wrap">
+  <article class="article">
+    <figure style="margin-top:0"><img src="../../assets/img/esp32.webp" alt="Low-power ESP32 design for battery products: deep sleep in practice" width="900" height="752" fetchpriority="high"><figcaption>Illustrative photo</figcaption></figure>
+    <nav class="toc" aria-label="Contents"><b>Contents</b><ol><li><a href="#board">1. A development board is not a product</a></li><li><a href="#wakeup">2. Choose the right wake-up source</a></li><li><a href="#wifi">3. Wi-Fi is the biggest consumer</a></li><li><a href="#estimate">4. Estimating battery life</a></li></ol></nav>
+    
+<p>With built-in Wi-Fi and Bluetooth, the ESP32 is a popular choice for IoT products. According to the datasheet, the chip can draw around 10 µA in deep sleep. Yet many people measure several milliamps on a development board and find their batteries last only a few weeks. Here is what we have learned designing battery-powered products.</p>
+
+<h2 id="board">1. A development board is not a product</h2>
+<p>The USB-to-UART bridge, power LED and general-purpose LDO on typical development boards all draw current continuously. For a product you should:</p>
+<ul>
+<li>Choose an LDO or DC-DC converter with <b>low quiescent current (Iq)</b>, ideally a few µA.</li>
+<li>Remove the power LED and USB bridge, or make them switchable.</li>
+<li>Switch off sensors, external memory and other peripherals with a MOSFET or load switch during sleep.</li>
+<li>Check pull-up / pull-down resistors and voltage dividers for constant leakage paths.</li>
+</ul>
+
+<h2 id="wakeup">2. Choose the right wake-up source</h2>
+<p>The ESP32 can wake from deep sleep in several ways:</p>
+<ul>
+<li><b>RTC timer:</b> wake periodically to measure and report — the most common.</li>
+<li><b>External GPIO (ext0 / ext1):</b> buttons, door contacts, sensor interrupts.</li>
+<li><b>Touch pins:</b> a user interface without mechanical buttons.</li>
+<li><b>ULP coprocessor:</b> takes simple measurements while the main cores sleep and wakes them only when a threshold is reached.</li>
+</ul>
+<p>Variables you need to keep can live in RTC memory (e.g. <code>RTC_DATA_ATTR</code>), so you don't have to re-initialize everything after waking.</p>
+
+<h2 id="wifi">3. Wi-Fi is the biggest consumer</h2>
+<p>Connecting and transmitting over Wi-Fi causes current peaks of several hundred mA. Shortening the time the device is awake makes a bigger difference than lowering sleep current:</p>
+<ul>
+<li>Use a static IP and remember the AP channel and BSSID to connect faster.</li>
+<li>Batch several readings into one transmission.</li>
+<li>Add enough bulk capacitance so current peaks do not cause brown-outs and resets.</li>
+<li>For long range and small data, consider a lower-power radio such as LoRa.</li>
+</ul>
+
+<h2 id="estimate">4. Estimating battery life</h2>
+<p>Start with the average current:</p>
+<pre><code>Average current = (active current × active time + sleep current × sleep time) ÷ period</code></pre>
+<p>For example, waking every 10 minutes, 3 s active at an average of 80 mA, and 20 µA in sleep:</p>
+<pre><code>(80 mA × 3 s + 0.02 mA × 597 s) ÷ 600 s ≈ 0.42 mA
+2000 mAh ÷ 0.42 mA ≈ 4,760 h ≈ 6.5 months (excluding self-discharge and temperature effects)</code></pre>
+<p>The active time dominates the average. Cutting it from 3 s to 1 s nearly triples battery life.</p>
+<div class="callout"><b>Measure to be sure:</b> use a power analyzer with a dynamic range from µA to hundreds of mA, record the full wake-up cycle, and optimize the firmware based on the waveform.</div>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:48px 0 24px">
+    <p class="muted">Written by the Balin R&D team as general technical guidance. Always check your specific product requirements and the latest regulations. Related service: <a href="../../en/services/embedded.html">Embedded Systems</a></p>
+  </article>
+</div></section>
+<section class="soft"><div class="wrap"><div class="sec-head"><h2>Further reading</h2></div>
+<div class="grid g3"><a class="card reveal" href="../../en/insights/lora-taiwan-as923.html">
+  <div class="media"><img src="../../assets/img/lora-chip.webp" alt="LoRa band planning: AS923 in Taiwan and how to choose SF and BW" width="900" height="584" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">LoRa Wireless</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>LoRa band planning: AS923 in Taiwan and how to choose SF and BW</h3><p>Taiwan uses 920–925 MHz (AS923) for LoRa. This article explains the trade-offs between band, spreading factor (SF), bandwidth (BW), range and battery life — and what changes in other regions.</p><span class="more arrow">Read article </span></div>
+</a><a class="card reveal" href="../../en/insights/pcb-antenna-design.html">
+  <div class="media"><img src="../../assets/img/p7.webp" alt="Choosing a PCB antenna: IFA, meander, patch and matching" width="900" height="525" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">RF Antenna Design</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>Choosing a PCB antenna: IFA, meander, patch and matching</h3><p>PCB antennas are cheap and need no assembly, but they are very sensitive to board space and nearby components. We compare common PCB antenna types and explain how to match them with a network analyzer.</p><span class="more arrow">Read article </span></div>
+</a><a class="card reveal" href="../../en/insights/ai-vision-inspection.html">
+  <div class="media"><img src="../../assets/img/p3.webp" alt="Introducing AI visual inspection: from lighting and labeling to line integration" width="900" height="900" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">AI Vision</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>Introducing AI visual inspection: from lighting and labeling to line integration</h3><p>Whether AI defect inspection succeeds usually depends less on the model than on lighting, data and integration with the line. Here are seven steps to a successful rollout.</p><span class="more arrow">Read article </span></div>
+</a></div></div></section>
+<section class="cta-wrap"><div class="wrap"><div class="cta-box reveal">
+  <div><h2>Ready to start your project?</h2><p>Tell our engineers what you want to build and get a free proposal covering everything from concept to mass production.</p></div>
+  <div class="actions"><a class="btn btn-primary" href="../../en/contact.html">Free consultation</a>
+  <a class="btn btn-ghost" href="tel:+886-932-830814"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg> +886-932-830814</a></div>
+</div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../en/index.html"><img src="../../assets/img/logo.svg" alt="" width="42" height="42" loading="lazy">
+          <span class="brand-name"><b>Balin Optoelectronics Co., Ltd.</b><small>BALIN OPTOELECTRONICS</small></span></a>
+        <p>AIoT product design house in Taiwan — embedded systems, AI vision, LoRa / RF wireless and industrial automation, from concept to mass production.</p>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="../../en/services/embedded.html">Embedded Systems</a></li><li><a href="../../en/services/ai-vision.html">AI Vision</a></li><li><a href="../../en/services/lora.html">LoRa Wireless</a></li><li><a href="../../en/services/rf-antenna.html">RF Antenna Design</a></li><li><a href="../../en/services/industrial.html">Industrial Automation</a></li><li><a href="../../en/services/odm.html">Custom ODM</a></li></ul></div>
+      <div><h4>Quick links</h4><ul><li><a href="../../en/about.html">About</a></li><li><a href="../../en/applications.html">Applications</a></li><li><a href="../../en/demos.html">Live Demos</a></li><li><a href="../../en/insights/">Insights</a></li><li><a href="../../en/support.html">Support</a></li><li><a href="../../en/contact.html">Contact</a></li></ul></div>
+      <div><h4>Contact</h4><ul>
+        <li>1F., No. 12, Ln. 618, Sec. 3, Yongda Rd., Yongkang Dist., Tainan City, Taiwan</li>
+        <li>Phone: <a href="tel:+886-932-830814">+886-932-830814</a></li>
+        <li>Email: <a href="mailto:bv6mk2002@gmail.com">bv6mk2002@gmail.com</a></li>
+        <li>Mon–Fri 09:00–18:00 (Taiwan time, GMT+8)</li>
+      </ul></div>
+    </div>
+    <div class="foot-langs"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg> <a href="../../insights/esp32-low-power.html" lang="zh-Hant-TW">繁體中文</a> · <a href="../../en/insights/esp32-low-power.html" lang="en">English</a> · <a href="../../ja/insights/esp32-low-power.html" lang="ja">日本語</a> · <a href="../../de/insights/esp32-low-power.html" lang="de">Deutsch</a> · <a href="../../zh-cn/insights/esp32-low-power.html" lang="zh-Hans-CN">简体中文</a></div>
+    <div class="foot-bottom">
+      <span>© 2026 Balin Optoelectronics Co., Ltd.　Tax ID 24406780</span>
+      <span><a href="../../en/credits.html">Image credits</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/main.js?v=20261020" defer></script>
+</body>
+</html>

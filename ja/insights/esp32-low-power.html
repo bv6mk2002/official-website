@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴｜八麟光電科技有限公司</title>
+<meta name="description" content="ESP32 チップのディープスリープ電流は µA レベルまで下がりますが、実測では数 mA という製品も少なくありません。原因の多くはチップではなく周辺回路にあります。">
+<link rel="canonical" href="https://www.balinedge.com.tw/ja/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="zh-TW" href="https://www.balinedge.com.tw/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="en" href="https://www.balinedge.com.tw/en/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="ja" href="https://www.balinedge.com.tw/ja/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="de" href="https://www.balinedge.com.tw/de/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="zh-CN" href="https://www.balinedge.com.tw/zh-cn/insights/esp32-low-power.html">
+<link rel="alternate" hreflang="x-default" href="https://www.balinedge.com.tw/en/insights/esp32-low-power.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="八麟光電科技有限公司">
+<meta property="og:title" content="ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴｜八麟光電科技有限公司">
+<meta property="og:description" content="ESP32 チップのディープスリープ電流は µA レベルまで下がりますが、実測では数 mA という製品も少なくありません。原因の多くはチップではなく周辺回路にあります。">
+<meta property="og:url" content="https://www.balinedge.com.tw/ja/insights/esp32-low-power.html">
+<meta property="og:image" content="https://www.balinedge.com.tw/assets/img/esp32.webp">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#061423">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261020">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.balinedge.com.tw/ja/"}, {"@type": "ListItem", "position": 2, "name": "技術コラム", "item": "https://www.balinedge.com.tw/ja/insights/"}, {"@type": "ListItem", "position": 3, "name": "ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴", "item": "https://www.balinedge.com.tw/ja/insights/esp32-low-power.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴", "description": "ESP32 チップのディープスリープ電流は µA レベルまで下がりますが、実測では数 mA という製品も少なくありません。原因の多くはチップではなく周辺回路にあります。", "datePublished": "2026-09-25", "inLanguage": "ja", "image": "https://www.balinedge.com.tw/assets/img/esp32.webp", "author": {"@type": "Organization", "name": "八麟光電科技有限公司"}, "publisher": {"@id": "https://www.balinedge.com.tw/#org"}}</script>
+</head>
+<body data-close="閉じる">
+<a class="skip" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../ja/index.html" aria-label="八麟光電科技有限公司">
+      <img src="../../assets/img/logo.svg" alt="" width="42" height="42">
+      <span class="brand-name"><b>八麟光電科技</b><small>BALIN OPTOELECTRONICS</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="メインメニュー" aria-expanded="false"><span></span></button>
+    <nav class="nav" aria-label="メインメニュー">
+      <a href="../../ja/about.html">会社概要</a><div class="dd"><button type="button" aria-expanded="false">製品・サービス</button><div class="dd-menu"><a href="../../ja/services/embedded.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5"/></svg><span><b>組込みシステム</b><small>STM32、ESP32、PIC、ARM Linux の回路設計、ファームウェア、ドライバー開発。</small></span></a><a href="../../ja/services/ai-vision.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span><b>AI 画像認識</b><small>YOLO 物体検出、OCR 文字認識、エッジ AI の実装で生産ラインと現場に導入。</small></span></a><a href="../../ja/services/lora.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19v-3M10 19v-7M15 19v-11M20 19V4"/></svg><span><b>LoRa 無線通信</b><small>SX12xx の RF 設計と LoRaWAN ネットワーク。km 単位の通信距離を低消費電力で。</small></span></a><a href="../../ja/services/rf-antenna.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2"/><path d="M12 8v13M7.5 11a6.5 6.5 0 0 1 9 0M4.6 8.2a10.5 10.5 0 0 1 14.8 0"/></svg><span><b>RF アンテナ設計</b><small>PCB・IFA・パッチアンテナのカスタム設計と、ネットワークアナライザによる整合調整。</small></span></a><a href="../../ja/services/industrial.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span><b>産業制御</b><small>PLC、RS485／Modbus、CAN、MQTT で設備データと生産ラインの自動化をつなぎます。</small></span></a><a href="../../ja/services/odm.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 8v8l8 4 8-4V8M12 12v8"/></svg><span><b>カスタム ODM</b><small>PCB レイアウト、試作、量産試作から量産まで。製品試験と認証取得もサポート。</small></span></a><a class="all" href="../../ja/services/">製品・サービス一覧 →</a></div></div><a href="../../ja/applications.html">導入事例・用途</a><a href="../../ja/demos.html">ライブデモ</a><a href="../../ja/insights/" aria-current="page">技術コラム</a><a href="../../ja/support.html">技術サポート</a>
+      <div class="dd lang-dd"><button type="button" aria-expanded="false" aria-label="言語を切り替える"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>日本語</span></button><div class="dd-menu"><a href="../../insights/esp32-low-power.html" lang="zh-Hant-TW" hreflang="zh-TW"><b>繁體中文</b></a><a href="../../en/insights/esp32-low-power.html" lang="en" hreflang="en"><b>English</b></a><a href="../../ja/insights/esp32-low-power.html" lang="ja" hreflang="ja" aria-current="true"><b>日本語</b></a><a href="../../de/insights/esp32-low-power.html" lang="de" hreflang="de"><b>Deutsch</b></a><a href="../../zh-cn/insights/esp32-low-power.html" lang="zh-Hans-CN" hreflang="zh-CN"><b>简体中文</b></a></div></div>
+      <a class="btn btn-primary btn-sm" href="../../ja/contact.html">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="パンくずリスト"><a href="../../ja/index.html">ホーム</a><span>/</span><a href="./">技術コラム</a></nav>
+  <div class="post-meta" style="color:#9DB1C8"><span class="pill">組込みシステム</span><time datetime="2026-09-25">2026.09.25</time><span>八麟光電 開発チーム</span></div>
+  <h1>ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴</h1><p>ESP32 チップのディープスリープ電流は µA レベルまで下がりますが、実測では数 mA という製品も少なくありません。原因の多くはチップではなく周辺回路にあります。</p>
+</div></section>
+<section><div class="wrap">
+  <article class="article">
+    <figure style="margin-top:0"><img src="../../assets/img/esp32.webp" alt="ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴" width="900" height="752" fetchpriority="high"><figcaption>イメージ写真</figcaption></figure>
+    <nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#board">1. 開発ボードは製品ではない</a></li><li><a href="#wakeup">2. 適切なウェイクアップ要因を選ぶ</a></li><li><a href="#wifi">3. 最大の電力消費は Wi-Fi 接続</a></li><li><a href="#estimate">4. 電池寿命の見積もり方</a></li></ol></nav>
+    
+<p>Wi-Fi と Bluetooth を内蔵する ESP32 は、IoT 製品で人気の選択肢です。データシートでは、ディープスリープ時のチップの消費電流は約 10µA レベルとされています。しかし開発ボードで測ると数 mA 流れていて、電池が数週間しか持たない、という声をよく聞きます。電池駆動製品の設計で得たポイントをまとめました。</p>
+
+<h2 id="board">1. 開発ボードは製品ではない</h2>
+<p>一般的な開発ボードの USB-UART 変換 IC、電源 LED、汎用 LDO はいずれも常に電流を消費します。製品化では次の対策が必要です：</p>
+<ul>
+<li><b>静止電流（Iq）の小さい</b> LDO や DC-DC を選ぶ（数 µA 以下が理想）。</li>
+<li>電源 LED や USB 変換 IC は取り外すか、オフにできるようにする。</li>
+<li>センサーや外部メモリなどの周辺回路は、MOSFET やロードスイッチでスリープ中にまとめて電源を切る。</li>
+<li>プルアップ／プルダウン抵抗や分圧回路が常時のリーク経路になっていないか確認する。</li>
+</ul>
+
+<h2 id="wakeup">2. 適切なウェイクアップ要因を選ぶ</h2>
+<p>ESP32 はさまざまな要因でディープスリープから復帰できます：</p>
+<ul>
+<li><b>RTC タイマー：</b>定期的に起動して測定・送信する、最も一般的な方法。</li>
+<li><b>外部 GPIO（ext0／ext1）：</b>ボタン、ドアセンサー、センサーの割り込み。</li>
+<li><b>タッチピン：</b>機械式ボタンを使わない操作部。</li>
+<li><b>ULP コプロセッサ：</b>メインコアがスリープ中に簡単な測定を行い、しきい値を超えたときだけメインコアを起こす。</li>
+</ul>
+<p>保持したい変数は RTC メモリ（<code>RTC_DATA_ATTR</code> など）に置けば、起動後にすべてを初期化し直す必要がありません。</p>
+
+<h2 id="wifi">3. 最大の電力消費は Wi-Fi 接続</h2>
+<p>Wi-Fi の接続と送信時には数百 mA クラスのピーク電流が流れます。スリープ電流を下げるより、「起きている時間」を短くするほうが効果的です：</p>
+<ul>
+<li>固定 IP を使い、AP のチャネルと BSSID を記憶して接続時間を短縮する。</li>
+<li>複数のデータをまとめて送り、接続回数を減らす。</li>
+<li>電源に十分な容量のコンデンサを置き、ピーク電流による電圧降下やリセットを防ぐ。</li>
+<li>通信距離が長くデータ量が少ない場合は、LoRa などより省電力な方式も検討する。</li>
+</ul>
+
+<h2 id="estimate">4. 電池寿命の見積もり方</h2>
+<p>まず平均電流を求めます：</p>
+<pre><code>平均電流 =（動作電流 × 動作時間 ＋ スリープ電流 × スリープ時間）÷ 周期</code></pre>
+<p>たとえば10分ごとに起動し、3秒間平均 80mA で動作、スリープ電流 20µA の場合：</p>
+<pre><code>(80 mA × 3 s + 0.02 mA × 597 s) ÷ 600 s ≈ 0.42 mA
+2000 mAh ÷ 0.42 mA ≈ 4,760 時間 ≈ 6.5 か月（自己放電と温度の影響は含まず）</code></pre>
+<p>平均電流の大部分を動作時間が占めていることが分かります。動作時間を3秒から1秒に縮めれば、電池寿命はほぼ3倍になります。</p>
+<div class="callout"><b>最も確実なのは実測です：</b>µA から数百 mA までのダイナミックレンジを持つ電源アナライザで、起動サイクル全体の波形を記録し、それをもとにファームウェアを最適化しましょう。</div>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:48px 0 24px">
+    <p class="muted">本記事は八麟光電の開発チームがまとめた一般的な技術解説です。実際の設計は製品の条件と最新の法規に基づいてご判断ください。関連サービス：<a href="../../ja/services/embedded.html">組込みシステム</a></p>
+  </article>
+</div></section>
+<section class="soft"><div class="wrap"><div class="sec-head"><h2>関連記事</h2></div>
+<div class="grid g3"><a class="card reveal" href="../../ja/insights/lora-taiwan-as923.html">
+  <div class="media"><img src="../../assets/img/lora-chip.webp" alt="LoRa の周波数はどう選ぶ？AS923 と SF・BW の設計ポイント" width="900" height="584" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">LoRa 無線通信</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>LoRa の周波数はどう選ぶ？AS923 と SF・BW の設計ポイント</h3><p>台湾と日本の LoRa は 920MHz 帯（AS923）を使用します。周波数、拡散率（SF）、帯域幅（BW）と、通信距離・電池寿命のトレードオフを整理しました。</p><span class="more arrow">記事を読む </span></div>
+</a><a class="card reveal" href="../../ja/insights/pcb-antenna-design.html">
+  <div class="media"><img src="../../assets/img/p7.webp" alt="PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整" width="900" height="525" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">RF アンテナ設計</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整</h3><p>PCB アンテナは低コストで組立も不要ですが、基板スペースや周辺部品の影響を強く受けます。代表的な PCB アンテナの特徴と、ネットワークアナライザによる整合の方法を解説します。</p><span class="more arrow">記事を読む </span></div>
+</a><a class="card reveal" href="../../ja/insights/ai-vision-inspection.html">
+  <div class="media"><img src="../../assets/img/p3.webp" alt="AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで" width="900" height="900" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">AI 画像認識</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで</h3><p>AI 外観検査の成否を分けるのは、モデルよりも照明、データ、ラインへの統合です。AI 画像検査を導入するための7つのステップをまとめました。</p><span class="more arrow">記事を読む </span></div>
+</a></div></div></section>
+<section class="cta-wrap"><div class="wrap"><div class="cta-box reveal">
+  <div><h2>プロジェクトのご相談はお気軽に</h2><p>エンジニアが直接お話を伺い、構想から量産までのご提案を無料でお届けします。</p></div>
+  <div class="actions"><a class="btn btn-primary" href="../../ja/contact.html">無料相談</a>
+  <a class="btn btn-ghost" href="tel:+886-932-830814"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg> +886-932-830814</a></div>
+</div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../ja/index.html"><img src="../../assets/img/logo.svg" alt="" width="42" height="42" loading="lazy">
+          <span class="brand-name"><b>八麟光電科技有限公司</b><small>BALIN OPTOELECTRONICS</small></span></a>
+        <p>台湾の AIoT スマート製品設計センター — 組込みシステム、AI 画像認識、LoRa／RF 無線通信、産業制御を、構想から量産までワンストップで。</p>
+      </div>
+      <div><h4>製品・サービス</h4><ul><li><a href="../../ja/services/embedded.html">組込みシステム</a></li><li><a href="../../ja/services/ai-vision.html">AI 画像認識</a></li><li><a href="../../ja/services/lora.html">LoRa 無線通信</a></li><li><a href="../../ja/services/rf-antenna.html">RF アンテナ設計</a></li><li><a href="../../ja/services/industrial.html">産業制御</a></li><li><a href="../../ja/services/odm.html">カスタム ODM</a></li></ul></div>
+      <div><h4>クイックリンク</h4><ul><li><a href="../../ja/about.html">会社概要</a></li><li><a href="../../ja/applications.html">導入事例・用途</a></li><li><a href="../../ja/demos.html">ライブデモ</a></li><li><a href="../../ja/insights/">技術コラム</a></li><li><a href="../../ja/support.html">技術サポート</a></li><li><a href="../../ja/contact.html">お問い合わせ</a></li></ul></div>
+      <div><h4>連絡先</h4><ul>
+        <li>台湾 台南市永康区永大路3段618巷12号1階</li>
+        <li>電話：<a href="tel:+886-932-830814">+886-932-830814</a></li>
+        <li>メール：<a href="mailto:bv6mk2002@gmail.com">bv6mk2002@gmail.com</a></li>
+        <li>月〜金 9:00〜18:00（台湾時間／日本時間 10:00〜19:00）</li>
+      </ul></div>
+    </div>
+    <div class="foot-langs"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg> <a href="../../insights/esp32-low-power.html" lang="zh-Hant-TW">繁體中文</a> · <a href="../../en/insights/esp32-low-power.html" lang="en">English</a> · <a href="../../ja/insights/esp32-low-power.html" lang="ja">日本語</a> · <a href="../../de/insights/esp32-low-power.html" lang="de">Deutsch</a> · <a href="../../zh-cn/insights/esp32-low-power.html" lang="zh-Hans-CN">简体中文</a></div>
+    <div class="foot-bottom">
+      <span>© 2026 八麟光電科技有限公司　統一番号 24406780</span>
+      <span><a href="../../ja/credits.html">画像の出典とライセンス</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/main.js?v=20261020" defer></script>
+</body>
+</html>

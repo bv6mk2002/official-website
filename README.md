@@ -7,14 +7,31 @@ https://www.balinedge.com.tw — GitHub Pages 靜態網站（repo：`bv6mk2002/o
 所有頁面由 `tools/build.py` 產生，**不要直接改 HTML**，改完會被覆蓋。
 
 1. 修改內容：編輯 `tools/content.py`（公司資料、服務項目、應用場域、FAQ、技術專欄文章）
-2. 重新產生頁面（需要 Python 3 與 Pillow）：
+2. 重新產生頁面（需要 Python 3、Pillow、opencc-python-reimplemented）：
 
    ```
+   python tools/make_zh_cn.py   # 繁體改過時，重新產生簡體中文
    python tools/build.py
    ```
 
 3. 本機預覽：`python -m http.server 8000`，開啟 http://localhost:8000
 4. 確認無誤後 commit 並 push，GitHub Pages 約 1 分鐘內更新
+
+## 多語言
+
+| 語言 | 網址 | 內容檔 |
+|---|---|---|
+| 繁體中文（主檔） | `/` | `tools/content.py`、`tools/i18n/zh_tw.py`（介面文字） |
+| English | `/en/` | `tools/i18n/en.py` |
+| 日本語 | `/ja/` | `tools/i18n/ja.py` |
+| Deutsch | `/de/` | `tools/i18n/de.py` |
+| 简体中文 | `/zh-cn/` | `tools/i18n/zh_cn.py`（由 `make_zh_cn.py` 自動產生，勿手改） |
+
+- 外語檔只寫翻譯文字；圖片、連結、代號自動沿用主檔。清單項目（服務、應用、文章…）的數量與順序必須和主檔一致。
+- **修改中文內容後，記得同步修改英、日、德三個檔案**，否則外語版仍是舊內容。新增文章時，三個外語檔也要各加一篇。
+- 介面文字缺翻譯時，build 會用英文暫代並列出缺少的 key。
+- 聯絡表單不論訪客語言，寄到公司的主旨一律是中文，並附上「網站語言」欄位。
+- 新增語言：在 `tools/i18n/__init__.py` 的 `LANG_TABLE` 加一行，再新增對應的翻譯檔。
 
 ## 結構
 
@@ -23,7 +40,7 @@ https://www.balinedge.com.tw — GitHub Pages 靜態網站（repo：`bv6mk2002/o
 | `index.html`、`about.html`… | 產生出來的頁面 |
 | `services/` | 六大服務頁 |
 | `insights/` | 技術專欄文章 |
-| `en/` | 英文簡介頁 |
+| `en/`、`ja/`、`de/`、`zh-cn/` | 各語言版本（結構與中文版相同） |
 | `assets/css/style.css` | 全站樣式 |
 | `assets/js/main.js` | 選單、表單等互動 |
 | `assets/img/` | 圖片（WebP）、標誌、分享預覽圖 |

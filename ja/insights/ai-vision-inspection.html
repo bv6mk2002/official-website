@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで｜八麟光電科技有限公司</title>
+<meta name="description" content="AI 外観検査の成否を分けるのは、モデルよりも照明、データ、ラインへの統合です。AI 画像検査を導入するための7つのステップをまとめました。">
+<link rel="canonical" href="https://www.balinedge.com.tw/ja/insights/ai-vision-inspection.html">
+<link rel="alternate" hreflang="zh-TW" href="https://www.balinedge.com.tw/insights/ai-vision-inspection.html">
+<link rel="alternate" hreflang="en" href="https://www.balinedge.com.tw/en/insights/ai-vision-inspection.html">
+<link rel="alternate" hreflang="ja" href="https://www.balinedge.com.tw/ja/insights/ai-vision-inspection.html">
+<link rel="alternate" hreflang="de" href="https://www.balinedge.com.tw/de/insights/ai-vision-inspection.html">
+<link rel="alternate" hreflang="zh-CN" href="https://www.balinedge.com.tw/zh-cn/insights/ai-vision-inspection.html">
+<link rel="alternate" hreflang="x-default" href="https://www.balinedge.com.tw/en/insights/ai-vision-inspection.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="八麟光電科技有限公司">
+<meta property="og:title" content="AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで｜八麟光電科技有限公司">
+<meta property="og:description" content="AI 外観検査の成否を分けるのは、モデルよりも照明、データ、ラインへの統合です。AI 画像検査を導入するための7つのステップをまとめました。">
+<meta property="og:url" content="https://www.balinedge.com.tw/ja/insights/ai-vision-inspection.html">
+<meta property="og:image" content="https://www.balinedge.com.tw/assets/img/p3.webp">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#061423">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261020">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.balinedge.com.tw/ja/"}, {"@type": "ListItem", "position": 2, "name": "技術コラム", "item": "https://www.balinedge.com.tw/ja/insights/"}, {"@type": "ListItem", "position": 3, "name": "AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで", "item": "https://www.balinedge.com.tw/ja/insights/ai-vision-inspection.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで", "description": "AI 外観検査の成否を分けるのは、モデルよりも照明、データ、ラインへの統合です。AI 画像検査を導入するための7つのステップをまとめました。", "datePublished": "2026-09-25", "inLanguage": "ja", "image": "https://www.balinedge.com.tw/assets/img/p3.webp", "author": {"@type": "Organization", "name": "八麟光電科技有限公司"}, "publisher": {"@id": "https://www.balinedge.com.tw/#org"}}</script>
+</head>
+<body data-close="閉じる">
+<a class="skip" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../ja/index.html" aria-label="八麟光電科技有限公司">
+      <img src="../../assets/img/logo.svg" alt="" width="42" height="42">
+      <span class="brand-name"><b>八麟光電科技</b><small>BALIN OPTOELECTRONICS</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="メインメニュー" aria-expanded="false"><span></span></button>
+    <nav class="nav" aria-label="メインメニュー">
+      <a href="../../ja/about.html">会社概要</a><div class="dd"><button type="button" aria-expanded="false">製品・サービス</button><div class="dd-menu"><a href="../../ja/services/embedded.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5"/></svg><span><b>組込みシステム</b><small>STM32、ESP32、PIC、ARM Linux の回路設計、ファームウェア、ドライバー開発。</small></span></a><a href="../../ja/services/ai-vision.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span><b>AI 画像認識</b><small>YOLO 物体検出、OCR 文字認識、エッジ AI の実装で生産ラインと現場に導入。</small></span></a><a href="../../ja/services/lora.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19v-3M10 19v-7M15 19v-11M20 19V4"/></svg><span><b>LoRa 無線通信</b><small>SX12xx の RF 設計と LoRaWAN ネットワーク。km 単位の通信距離を低消費電力で。</small></span></a><a href="../../ja/services/rf-antenna.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2"/><path d="M12 8v13M7.5 11a6.5 6.5 0 0 1 9 0M4.6 8.2a10.5 10.5 0 0 1 14.8 0"/></svg><span><b>RF アンテナ設計</b><small>PCB・IFA・パッチアンテナのカスタム設計と、ネットワークアナライザによる整合調整。</small></span></a><a href="../../ja/services/industrial.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span><b>産業制御</b><small>PLC、RS485／Modbus、CAN、MQTT で設備データと生産ラインの自動化をつなぎます。</small></span></a><a href="../../ja/services/odm.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 8v8l8 4 8-4V8M12 12v8"/></svg><span><b>カスタム ODM</b><small>PCB レイアウト、試作、量産試作から量産まで。製品試験と認証取得もサポート。</small></span></a><a class="all" href="../../ja/services/">製品・サービス一覧 →</a></div></div><a href="../../ja/applications.html">導入事例・用途</a><a href="../../ja/demos.html">ライブデモ</a><a href="../../ja/insights/" aria-current="page">技術コラム</a><a href="../../ja/support.html">技術サポート</a>
+      <div class="dd lang-dd"><button type="button" aria-expanded="false" aria-label="言語を切り替える"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>日本語</span></button><div class="dd-menu"><a href="../../insights/ai-vision-inspection.html" lang="zh-Hant-TW" hreflang="zh-TW"><b>繁體中文</b></a><a href="../../en/insights/ai-vision-inspection.html" lang="en" hreflang="en"><b>English</b></a><a href="../../ja/insights/ai-vision-inspection.html" lang="ja" hreflang="ja" aria-current="true"><b>日本語</b></a><a href="../../de/insights/ai-vision-inspection.html" lang="de" hreflang="de"><b>Deutsch</b></a><a href="../../zh-cn/insights/ai-vision-inspection.html" lang="zh-Hans-CN" hreflang="zh-CN"><b>简体中文</b></a></div></div>
+      <a class="btn btn-primary btn-sm" href="../../ja/contact.html">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="パンくずリスト"><a href="../../ja/index.html">ホーム</a><span>/</span><a href="./">技術コラム</a></nav>
+  <div class="post-meta" style="color:#9DB1C8"><span class="pill">AI 画像認識</span><time datetime="2026-09-25">2026.09.25</time><span>八麟光電 開発チーム</span></div>
+  <h1>AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで</h1><p>AI 外観検査の成否を分けるのは、モデルよりも照明、データ、ラインへの統合です。AI 画像検査を導入するための7つのステップをまとめました。</p>
+</div></section>
+<section><div class="wrap">
+  <article class="article">
+    <figure style="margin-top:0"><img src="../../assets/img/p3.webp" alt="AI 外観検査の導入ガイド：照明、アノテーションからライン統合まで" width="900" height="900" fetchpriority="high"><figcaption>イメージ写真</figcaption></figure>
+    <nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#define">1. まず「何が欠陥か」を定義する</a></li><li><a href="#light">2. 照明はモデルより重要</a></li><li><a href="#data">3. データの収集とアノテーション</a></li><li><a href="#model">4. モデルの種類を選ぶ</a></li><li><a href="#metric">5. 適切な評価指標を使う</a></li><li><a href="#edge">6. エッジへの実装</a></li><li><a href="#integrate">7. ラインへの統合と継続的な改善</a></li></ol></nav>
+    
+<p>目視検査を AI に置き換えたいという工場が増えています。しかし実際には、ラボでは高い精度が出たのに、ラインに導入すると誤判定が続く、というケースがよくあります。原因の多くはモデルそのものではなく、その前後の工程にあります。当社が推奨する導入ステップは次のとおりです。</p>
+
+<h2 id="define">1. まず「何が欠陥か」を定義する</h2>
+<p>品質管理の担当者と一緒に、欠陥の種類、許容できるサイズや程度を洗い出し、限度見本を用意します。検査員同士で判定が一致しなければ、AI も安定した基準を学習できません。</p>
+
+<h2 id="light">2. 照明はモデルより重要</h2>
+<p>適切な照明は欠陥を浮かび上がらせ、モデルの難易度を大きく下げます：</p>
+<ul>
+<li><b>バックライト（透過照明）：</b>外形寸法、穴、光を通す欠陥の検出に。</li>
+<li><b>同軸照明：</b>反射しやすい表面のキズや打痕に。</li>
+<li><b>ローアングルリング照明：</b>表面の凹凸、刻印、細かいキズを強調。</li>
+</ul>
+<p>外乱光の影響を抑え、適切なカメラ解像度、レンズ、シャッタースピードを選んで、ワークが動いていても鮮明な画像を得られるようにします。</p>
+
+<h2 id="data">3. データの収集とアノテーション</h2>
+<p>不良品は良品よりはるかに少ないため、データの偏りは避けられません。欠陥の種類ごとにサンプルを集め続け、一貫した基準でアノテーションし、一部のデータは学習に使わず検証用に残しておきます。</p>
+
+<h2 id="model">4. モデルの種類を選ぶ</h2>
+<div class="table-scroll"><table>
+<tr><th>タスク</th><th>内容</th><th>適した場面</th></tr>
+<tr><td>分類</td><td>画像全体を OK／NG で判定</td><td>欠陥が明確で位置が不要な場合</td></tr>
+<tr><td>物体検出（YOLO など）</td><td>欠陥の位置と種類を枠で示す</td><td>欠陥の位置や個数が必要な場合</td></tr>
+<tr><td>セグメンテーション</td><td>欠陥の正確な輪郭を抽出</td><td>欠陥の面積を測定したい場合</td></tr>
+</table></div>
+
+<h2 id="metric">5. 適切な評価指標を使う</h2>
+<p>生産ラインで最も重視されるのは、通常<b>見逃し率</b>（不良品を良品として流してしまう）と<b>過検出率</b>（良品を不良として排出してしまう）です。両者はトレードオフの関係にあるため、単一の「正解率」だけでなく、品質管理部門と一緒に判定しきい値を決めましょう。</p>
+
+<h2 id="edge">6. エッジへの実装</h2>
+<p>リアルタイム性とデータを社外に出さないために、モデルは通常ライン近くのエッジデバイスに実装します。モデルの軽量化や量子化（INT8 など）により、限られた演算能力でもラインのタクトタイムを満たせるようにします。</p>
+
+<h2 id="integrate">7. ラインへの統合と継続的な改善</h2>
+<ul>
+<li>センサーや PLC の信号で撮像をトリガーし、すべてのワークを同じ位置で撮影する。</li>
+<li>判定結果を DO 信号で PLC や排出機構に出力する。</li>
+<li>NG 画像と判定記録を保存し、品質のトレーサビリティとモデルの再学習に活用する。</li>
+<li>誤判定の事例を定期的に確認し、データセットを拡充し続ける。</li>
+</ul>
+<div class="callout"><b>自社ラインに導入できるか検討したい方へ</b>良品と不良品の写真を数枚お送りいただければ、初期の実現性評価を行います。<a href="../contact.html?subject=custom&amp;ref=AI 外観検査の実現性評価">お問い合わせ</a></div>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:48px 0 24px">
+    <p class="muted">本記事は八麟光電の開発チームがまとめた一般的な技術解説です。実際の設計は製品の条件と最新の法規に基づいてご判断ください。関連サービス：<a href="../../ja/services/ai-vision.html">AI 画像認識</a></p>
+  </article>
+</div></section>
+<section class="soft"><div class="wrap"><div class="sec-head"><h2>関連記事</h2></div>
+<div class="grid g3"><a class="card reveal" href="../../ja/insights/lora-taiwan-as923.html">
+  <div class="media"><img src="../../assets/img/lora-chip.webp" alt="LoRa の周波数はどう選ぶ？AS923 と SF・BW の設計ポイント" width="900" height="584" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">LoRa 無線通信</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>LoRa の周波数はどう選ぶ？AS923 と SF・BW の設計ポイント</h3><p>台湾と日本の LoRa は 920MHz 帯（AS923）を使用します。周波数、拡散率（SF）、帯域幅（BW）と、通信距離・電池寿命のトレードオフを整理しました。</p><span class="more arrow">記事を読む </span></div>
+</a><a class="card reveal" href="../../ja/insights/pcb-antenna-design.html">
+  <div class="media"><img src="../../assets/img/p7.webp" alt="PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整" width="900" height="525" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">RF アンテナ設計</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>PCB アンテナの選び方：IFA・メアンダ・パッチと整合調整</h3><p>PCB アンテナは低コストで組立も不要ですが、基板スペースや周辺部品の影響を強く受けます。代表的な PCB アンテナの特徴と、ネットワークアナライザによる整合の方法を解説します。</p><span class="more arrow">記事を読む </span></div>
+</a><a class="card reveal" href="../../ja/insights/esp32-low-power.html">
+  <div class="media"><img src="../../assets/img/esp32.webp" alt="ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴" width="900" height="752" loading="lazy" decoding="async"></div>
+  <div class="body"><div class="post-meta"><span class="pill">組込みシステム</span><time datetime="2026-09-25">2026.09.25</time></div>
+  <h3>ESP32 電池駆動製品の低消費電力設計：ディープスリープの実践と落とし穴</h3><p>ESP32 チップのディープスリープ電流は µA レベルまで下がりますが、実測では数 mA という製品も少なくありません。原因の多くはチップではなく周辺回路にあります。</p><span class="more arrow">記事を読む </span></div>
+</a></div></div></section>
+<section class="cta-wrap"><div class="wrap"><div class="cta-box reveal">
+  <div><h2>プロジェクトのご相談はお気軽に</h2><p>エンジニアが直接お話を伺い、構想から量産までのご提案を無料でお届けします。</p></div>
+  <div class="actions"><a class="btn btn-primary" href="../../ja/contact.html">無料相談</a>
+  <a class="btn btn-ghost" href="tel:+886-932-830814"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg> +886-932-830814</a></div>
+</div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../ja/index.html"><img src="../../assets/img/logo.svg" alt="" width="42" height="42" loading="lazy">
+          <span class="brand-name"><b>八麟光電科技有限公司</b><small>BALIN OPTOELECTRONICS</small></span></a>
+        <p>台湾の AIoT スマート製品設計センター — 組込みシステム、AI 画像認識、LoRa／RF 無線通信、産業制御を、構想から量産までワンストップで。</p>
+      </div>
+      <div><h4>製品・サービス</h4><ul><li><a href="../../ja/services/embedded.html">組込みシステム</a></li><li><a href="../../ja/services/ai-vision.html">AI 画像認識</a></li><li><a href="../../ja/services/lora.html">LoRa 無線通信</a></li><li><a href="../../ja/services/rf-antenna.html">RF アンテナ設計</a></li><li><a href="../../ja/services/industrial.html">産業制御</a></li><li><a href="../../ja/services/odm.html">カスタム ODM</a></li></ul></div>
+      <div><h4>クイックリンク</h4><ul><li><a href="../../ja/about.html">会社概要</a></li><li><a href="../../ja/applications.html">導入事例・用途</a></li><li><a href="../../ja/demos.html">ライブデモ</a></li><li><a href="../../ja/insights/">技術コラム</a></li><li><a href="../../ja/support.html">技術サポート</a></li><li><a href="../../ja/contact.html">お問い合わせ</a></li></ul></div>
+      <div><h4>連絡先</h4><ul>
+        <li>台湾 台南市永康区永大路3段618巷12号1階</li>
+        <li>電話：<a href="tel:+886-932-830814">+886-932-830814</a></li>
+        <li>メール：<a href="mailto:bv6mk2002@gmail.com">bv6mk2002@gmail.com</a></li>
+        <li>月〜金 9:00〜18:00（台湾時間／日本時間 10:00〜19:00）</li>
+      </ul></div>
+    </div>
+    <div class="foot-langs"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg> <a href="../../insights/ai-vision-inspection.html" lang="zh-Hant-TW">繁體中文</a> · <a href="../../en/insights/ai-vision-inspection.html" lang="en">English</a> · <a href="../../ja/insights/ai-vision-inspection.html" lang="ja">日本語</a> · <a href="../../de/insights/ai-vision-inspection.html" lang="de">Deutsch</a> · <a href="../../zh-cn/insights/ai-vision-inspection.html" lang="zh-Hans-CN">简体中文</a></div>
+    <div class="foot-bottom">
+      <span>© 2026 八麟光電科技有限公司　統一番号 24406780</span>
+      <span><a href="../../ja/credits.html">画像の出典とライセンス</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/main.js?v=20261020" defer></script>
+</body>
+</html>
