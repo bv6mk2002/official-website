@@ -88,10 +88,13 @@
     data._subject = '官網諮詢：' + (data['諮詢主題'] || '') + (lang && lang !== '繁體中文' ? '（' + lang + '）' : '');
     btn.disabled = true; btn.textContent = form.dataset.sending;
     status.hidden = true;
+    // 用 form-urlencoded（瀏覽器的「簡單請求」），不觸發 CORS 預檢，避免預檢被擋而送不出去
+    var body = new URLSearchParams();
+    Object.keys(data).forEach(function (k) { body.append(k, data[k]); });
     fetch(form.action, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(data)
+      headers: { Accept: 'application/json' },
+      body: body
     }).then(function (r) {
       if (!r.ok) throw new Error(r.status);
       return r.json();
