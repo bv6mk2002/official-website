@@ -2,6 +2,78 @@
 (function () {
   var body = document.body;
 
+  // ---------------------------------------------------------------
+  // 自動語系：依訪客瀏覽器語言
+  //   - 第一次打開中文首頁 → 自動轉到對應語言首頁
+  //   - 其他頁面 → 頂端顯示「本頁有 ○○ 語版」提示
+  //   - 訪客手動切換語言或關掉提示後記住選擇，不再干擾
+  //   - 搜尋引擎爬蟲不處理，避免影響收錄
+  // ---------------------------------------------------------------
+  (function autoLang() {
+    var KEY = 'balin-lang';
+    var store = {
+      get: function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } },
+      set: function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    };
+    // 語言切換選單裡的連結（相對路徑，指向「本頁」的各語言版本）
+    var links = {};
+    var current = null;
+    document.querySelectorAll('.lang-dd .dd-menu a[hreflang]').forEach(function (a) {
+      links[a.getAttribute('hreflang')] = a;
+      if (a.hasAttribute('aria-current')) current = a.getAttribute('hreflang');
+      // 訪客手動選語言 → 記住
+      a.addEventListener('click', function () { store.set(a.getAttribute('hreflang')); });
+    });
+    if (!current || /bot|crawl|spider|slurp|baidu|yandex|duckduck|facebookexternalhit|lighthouse|headless/i.test(navigator.userAgent)) return;
+
+    function detect() {
+      var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+      for (var i = 0; i < list.length; i++) {
+        var l = (list[i] || '').toLowerCase();
+        if (l.indexOf('zh') === 0) return /hant|tw|hk|mo/.test(l) ? 'zh-TW' : 'zh-CN';
+        if (l.indexOf('ja') === 0) return 'ja';
+        if (l.indexOf('de') === 0) return 'de';
+        if (l.indexOf('en') === 0) return 'en';
+      }
+      return 'en';  // 其他語言的訪客先看英文
+    }
+    var target = store.get() || detect();
+    if (target === current || !links[target]) return;
+
+    // 中文首頁（網站入口）→ 直接轉到對應語言首頁
+    var path = location.pathname.replace(/\/index\.html$/, '/');
+    if (current === 'zh-TW' && path === '/' && !location.hash) {
+      store.set(target);
+      location.replace(links[target].href.replace(/index\.html$/, ''));
+      return;
+    }
+
+    // 其他頁面 → 用訪客的語言顯示切換提示
+    var MSG = {
+      'zh-TW': ['本頁提供繁體中文版。', '切換為繁體中文'],
+      'zh-CN': ['本页提供简体中文版。', '切换为简体中文'],
+      'en': ['This page is also available in English.', 'View in English'],
+      'ja': ['このページは日本語でもご覧いただけます。', '日本語で見る'],
+      'de': ['Diese Seite gibt es auch auf Deutsch.', 'Auf Deutsch lesen']
+    };
+    var m = MSG[target];
+    var bar = document.createElement('div');
+    bar.className = 'lang-bar';
+    bar.setAttribute('lang', links[target].getAttribute('lang') || target);
+    bar.innerHTML = '<div class="wrap"><span></span><a class="btn btn-primary btn-sm"></a>' +
+                    '<button type="button" aria-label="×">×</button></div>';
+    bar.querySelector('span').textContent = m[0];
+    var go = bar.querySelector('a');
+    go.textContent = m[1];
+    go.href = links[target].href;
+    go.addEventListener('click', function () { store.set(target); });
+    bar.querySelector('button').addEventListener('click', function () {
+      store.set(current);  // 關掉提示 = 選擇留在目前語言
+      bar.remove();
+    });
+    body.insertBefore(bar, body.firstChild);
+  })();
+
   // 手機選單
   var toggle = document.querySelector('.menu-toggle');
   if (toggle) {

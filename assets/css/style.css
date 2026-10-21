@@ -457,3 +457,11 @@ html:lang(en) .card .body p, html:lang(de) .card .body p { hyphens: auto; }
 .foot-langs { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: .85rem; color: #7F96B0; }
 .foot-langs svg { margin-right: 2px; }
 .lang-note { background: #F0F5FF; border-left: 4px solid var(--blue); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: .92rem; }
+
+/* ---------- 語言建議提示列 ---------- */
+.lang-bar { background: var(--navy-2); color: #DCE6F2; font-size: .92rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+.lang-bar .wrap { display: flex; align-items: center; gap: 12px; padding-block: 10px; flex-wrap: wrap; }
+.lang-bar span { flex: 1 1 220px; }
+.lang-bar .btn { padding: 8px 14px; }
+.lang-bar button { background: none; border: 0; color: #9DB1C8; font-size: 1.4rem; line-height: 1; cursor: pointer; padding: 4px 8px; }
+.lang-bar button:hover { color: #fff; }
