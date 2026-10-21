@@ -23,7 +23,10 @@ import photos
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TODAY = date.today().isoformat()
-VER = TODAY.replace("-", "")
+import hashlib
+# CSS／JS 的版本號取自檔案內容，檔案一改就換號，避免訪客瀏覽器用到舊的快取
+VER = hashlib.sha1(b"".join(open(os.path.join(ROOT, "assets", x), "rb").read()
+                            for x in ("css/style.css", "js/main.js"))).hexdigest()[:8]
 CREDITS = json.load(open(os.path.join(ROOT, "tools", "credits.json"), encoding="utf-8"))
 SITE_URL = i18n.SITE_URL
 PAGES = []  # 給 sitemap 用

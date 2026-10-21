@@ -83,15 +83,32 @@
     var data = {};
     new FormData(form).forEach(function (v, k) { data[k] = v; });
     if (data.botcheck) return;  // 機器人陷阱欄位被勾選就不送
-    delete data.botcheck;
     // 信件主旨一律中文；外語版加註訪客使用的語言
     var lang = data['網站語言'];
-    data.subject = '官網諮詢：' + (data['諮詢主題'] || '') + (lang && lang !== '繁體中文' ? '（' + lang + '）' : '');
+    var subject = '官網諮詢：' + (data['諮詢主題'] || '') + (lang && lang !== '繁體中文' ? '（' + lang + '）' : '');
+    // Web3Forms 會把中文「欄位名稱」解成亂碼（內容正常），所以只用英文欄位名稱，
+    // 並把所有資料整理成一段有中文標籤的內文放進 message
+    var message = [
+      '姓名：' + (data['姓名'] || ''),
+      '公司：' + (data['公司'] || ''),
+      '電子信箱：' + (data.email || ''),
+      '聯絡電話：' + (data['電話'] || ''),
+      '諮詢主題：' + (data['諮詢主題'] || ''),
+      '網站語言：' + (lang || ''),
+      '',
+      '需求說明：',
+      data['需求說明'] || ''
+    ].join('\n');
     btn.disabled = true; btn.textContent = form.dataset.sending;
     status.hidden = true;
     // 用 FormData 送出（瀏覽器的「簡單請求」，不需 CORS 預檢）
     var body = new FormData();
-    Object.keys(data).forEach(function (k) { body.append(k, data[k]); });
+    body.append('access_key', data.access_key);
+    body.append('subject', subject);
+    body.append('from_name', data.from_name || '八麟光電官網');
+    body.append('name', data['姓名'] || '');
+    body.append('email', data.email || '');  // Web3Forms 會設為回覆對象，直接按「回覆」即可回信給客戶
+    body.append('message', message);
     fetch(form.action, {
       method: 'POST',
       headers: { Accept: 'application/json' },
