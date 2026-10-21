@@ -50,7 +50,7 @@ UI = {
 
     "home_title": "Balin Optoelectronics | Embedded, AI Vision, LoRa & RF Design House in Taiwan",
     "home_desc": "Balin Optoelectronics is an AIoT product design house in Tainan, Taiwan: embedded systems (STM32 / ESP32), AI vision, LoRa / RF wireless, antenna design, industrial automation and OEM / ODM manufacturing.",
-    "hero_h1_a": "From concept to mass production —",
+    "hero_h1_a": "From concept to mass production —",
     "hero_h1_b": "smart hardware, done right.",
     "hero_lead": "Embedded systems, AI vision, LoRa / RF wireless and industrial automation. One engineering team in Taiwan takes your product from hardware and firmware to AI and volume manufacturing.",
     "hero_cta": "Talk to an engineer",

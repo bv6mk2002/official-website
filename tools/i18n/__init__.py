@@ -28,6 +28,7 @@ LANG_TABLE = [
     ("en", "en/", "en", "en", "en_US", "English", "EN", "en"),
     ("ja", "ja/", "ja", "ja", "ja_JP", "日本語", "日本語", "ja"),
     ("de", "de/", "de", "de", "de_DE", "Deutsch", "DE", "de"),
+    ("ru", "ru/", "ru", "ru", "ru_RU", "Русский", "RU", "ru"),
     ("zh_cn", "zh-cn/", "zh-Hans-CN", "zh-CN", "zh_CN", "简体中文", "简中", "zh-CN"),
 ]
 

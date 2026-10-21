@@ -442,7 +442,8 @@ html:lang(ja) { --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hir
 html:lang(zh-Hans) { --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", sans-serif; }
 html:lang(ja) h1, html:lang(ja) h2, html:lang(ja) h3 { word-break: auto-phrase; }
 html:lang(de) h1, html:lang(de) h2, html:lang(de) h3 { hyphens: auto; overflow-wrap: break-word; }
-html:lang(en) .card .body p, html:lang(de) .card .body p { hyphens: auto; }
+html:lang(ru) h1, html:lang(ru) h2, html:lang(ru) h3 { hyphens: auto; overflow-wrap: break-word; }
+html:lang(en) .card .body p, html:lang(de) .card .body p, html:lang(ru) .card .body p { hyphens: auto; }
 
 .lang-dd > button { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line) !important; font-size: .85rem !important; }
 .lang-dd > button svg { flex-shrink: 0; }

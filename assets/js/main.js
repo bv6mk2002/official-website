@@ -33,6 +33,7 @@
         if (l.indexOf('zh') === 0) return /hant|tw|hk|mo/.test(l) ? 'zh-TW' : 'zh-CN';
         if (l.indexOf('ja') === 0) return 'ja';
         if (l.indexOf('de') === 0) return 'de';
+        if (l.indexOf('ru') === 0) return 'ru';
         if (l.indexOf('en') === 0) return 'en';
       }
       return 'en';  // 其他語言的訪客先看英文
@@ -54,7 +55,8 @@
       'zh-CN': ['本页提供简体中文版。', '切换为简体中文'],
       'en': ['This page is also available in English.', 'View in English'],
       'ja': ['このページは日本語でもご覧いただけます。', '日本語で見る'],
-      'de': ['Diese Seite gibt es auch auf Deutsch.', 'Auf Deutsch lesen']
+      'de': ['Diese Seite gibt es auch auf Deutsch.', 'Auf Deutsch lesen'],
+      'ru': ['Эта страница доступна на русском языке.', 'Читать на русском']
     };
     var m = MSG[target];
     var bar = document.createElement('div');

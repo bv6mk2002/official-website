@@ -25,10 +25,11 @@ https://www.balinedge.com.tw — GitHub Pages 靜態網站（repo：`bv6mk2002/o
 | English | `/en/` | `tools/i18n/en.py` |
 | 日本語 | `/ja/` | `tools/i18n/ja.py` |
 | Deutsch | `/de/` | `tools/i18n/de.py` |
+| Русский | `/ru/` | `tools/i18n/ru.py` |
 | 简体中文 | `/zh-cn/` | `tools/i18n/zh_cn.py`（由 `make_zh_cn.py` 自動產生，勿手改） |
 
 - 外語檔只寫翻譯文字；圖片、連結、代號自動沿用主檔。清單項目（服務、應用、文章…）的數量與順序必須和主檔一致。
-- **修改中文內容後，記得同步修改英、日、德三個檔案**，否則外語版仍是舊內容。新增文章時，三個外語檔也要各加一篇。
+- **修改中文內容後，記得同步修改英、日、德、俄四個檔案**，否則外語版仍是舊內容。新增文章時，四個外語檔也要各加一篇。
 - 介面文字缺翻譯時，build 會用英文暫代並列出缺少的 key。
 - 聯絡表單不論訪客語言，寄到公司的主旨一律是中文，並附上「網站語言」欄位。
 - 新增語言：在 `tools/i18n/__init__.py` 的 `LANG_TABLE` 加一行，再新增對應的翻譯檔。
@@ -40,7 +41,7 @@ https://www.balinedge.com.tw — GitHub Pages 靜態網站（repo：`bv6mk2002/o
 | `index.html`、`about.html`… | 產生出來的頁面 |
 | `services/` | 六大服務頁 |
 | `insights/` | 技術專欄文章 |
-| `en/`、`ja/`、`de/`、`zh-cn/` | 各語言版本（結構與中文版相同） |
+| `en/`、`ja/`、`de/`、`ru/`、`zh-cn/` | 各語言版本（結構與中文版相同） |
 | `assets/css/style.css` | 全站樣式 |
 | `assets/js/main.js` | 選單、表單等互動 |
 | `assets/img/` | 圖片（WebP）、標誌、分享預覽圖 |

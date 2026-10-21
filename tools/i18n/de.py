@@ -50,7 +50,7 @@ UI = {
 
     "home_title": "Balin Optoelectronics | Embedded-, KI-Vision-, LoRa- & Funkentwicklung aus Taiwan",
     "home_desc": "Balin Optoelectronics ist ein AIoT-Entwicklungspartner aus Tainan, Taiwan: Embedded-Systeme (STM32 / ESP32), KI-Bildverarbeitung, LoRa / Funk, Antennendesign, Industrieautomation und OEM- / ODM-Fertigung.",
-    "hero_h1_a": "Vom Konzept zur Serie —",
+    "hero_h1_a": "Vom Konzept zur Serie —",
     "hero_h1_b": "zuverlässige smarte Hardware.",
     "hero_lead": "Embedded-Systeme, KI-Bildverarbeitung, LoRa- / Funktechnik und Industrieautomation. Ein Entwicklungsteam in Taiwan begleitet Ihr Produkt von Hardware und Firmware über KI bis zur Serienfertigung.",
     "hero_cta": "Mit einem Ingenieur sprechen",
