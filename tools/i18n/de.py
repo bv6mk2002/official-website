@@ -172,7 +172,7 @@ UI = {
 
     "contact_lead": "Fragen Sie uns zu Spezifikationen, Kooperationen oder technischem Support. Wir antworten innerhalb eines Werktags.",
     "contact_desc": "Kontakt zu Balin Optoelectronics: Telefon {phone}, {address}. Senden Sie uns Ihre Anforderungen online — ein Ingenieur antwortet innerhalb eines Werktags.",
-    "contact_lang_note": "Sie können uns gerne auf Deutsch oder Englisch schreiben. Wir antworten in der Regel auf Englisch.",
+    "contact_lang_note": "Sie können uns gerne auf Deutsch kontaktieren – wir antworten auf Deutsch oder Englisch.",
     "label_phone": "Telefon",
     "label_email": "E-Mail",
     "label_address": "Anschrift",
