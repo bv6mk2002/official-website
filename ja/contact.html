@@ -67,7 +67,7 @@
     <h2>お問い合わせフォーム</h2>
     <p class="muted">用途、想定数量、スケジュールをできるだけ具体的にお書きいただくと、より的確なご提案が可能です。</p>
     <p class="lang-note">日本語でのお問い合わせも承っております。お気軽にご連絡ください。</p>
-    <form id="contact-form" action="https://formsubmit.co/ajax/bv6mk2002@gmail.com" method="post" novalidate
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="post" novalidate
       data-email="bv6mk2002@gmail.com" data-phone="+886-932-830814" data-sending="送信中…"
       data-submit="送信する" data-ok="お問い合わせありがとうございます。内容を確認のうえ、1営業日以内にご連絡いたします。" data-err="送信できませんでした。ネットワークの問題の可能性があります。お手数ですが {email} までメール、または {phone} までお電話ください。" data-ref="次の件について詳しく知りたい：">
       <div class="form-grid">
@@ -77,8 +77,10 @@
         <div><label for="f-phone">電話番号</label><input id="f-phone" name="電話" type="tel" autocomplete="tel"></div>
         <div class="full"><label for="f-subject">お問い合わせ内容</label><select id="f-subject" name="諮詢主題"><option value="產品諮詢" data-k="product">製品について</option><option value="客製化開發" data-k="custom">受託開発</option><option value="技術支援" data-k="support">技術サポート</option><option value="代理經銷合作" data-k="dealer">代理店・協業</option><option value="其他" data-k="other">その他</option></select></div>
         <div class="full"><label for="f-msg">ご要件 <span class="req">*</span></label><textarea id="f-msg" name="需求說明" required placeholder="例：電池駆動の LoRa 温湿度センサーを開発したい。数量は約500台、6か月以内の量産を希望。"></textarea></div>
+        <input type="hidden" name="access_key" value="ac56e276-c6f7-475c-a782-f99b7949fe80">
+        <input type="hidden" name="from_name" value="八麟光電官網">
         <input type="hidden" name="網站語言" value="日本語">
-        <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="full"><button class="btn btn-primary" type="submit">送信する</button>
         <p class="form-note">送信いただいた情報は、お問い合わせへの回答のみに使用し、第三者に提供することはありません。</p>
         <div class="form-status" role="status" hidden></div></div>

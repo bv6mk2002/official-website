@@ -27,8 +27,10 @@ COMPANY = {
     "phone_display": "0932-830814",     # 網頁上顯示的電話
     "email": "bv6mk2002@gmail.com",
     "hours": "週一至週五 09:00–18:00",
-    # 表單寄送服務（formsubmit.co）。第一次收到表單時，需到信箱點擊啟用連結。
-    "form_endpoint": "https://formsubmit.co/ajax/bv6mk2002@gmail.com",
+    # 表單寄送服務（Web3Forms）。金鑰在 https://web3forms.com 用公司信箱申請，
+    # 表單內容會寄到申請時填的信箱。金鑰本來就會出現在網頁上，不是機密。
+    "form_endpoint": "https://api.web3forms.com/submit",
+    "form_key": "ac56e276-c6f7-475c-a782-f99b7949fe80",
 }
 
 # ---------------------------------------------------------------------------

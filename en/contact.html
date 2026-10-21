@@ -67,7 +67,7 @@
     <h2>Send us a message</h2>
     <p class="muted">Please describe your application, expected quantities and timeline so we can give you an accurate recommendation.</p>
     
-    <form id="contact-form" action="https://formsubmit.co/ajax/bv6mk2002@gmail.com" method="post" novalidate
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="post" novalidate
       data-email="bv6mk2002@gmail.com" data-phone="+886-932-830814" data-sending="Sending…"
       data-submit="Send message" data-ok="Thank you! We have received your message and will get back to you within one business day." data-err="Sorry, the message could not be sent — possibly a network problem. Please email {email} or call {phone}." data-ref="I would like to know more about: ">
       <div class="form-grid">
@@ -77,8 +77,10 @@
         <div><label for="f-phone">Phone</label><input id="f-phone" name="電話" type="tel" autocomplete="tel"></div>
         <div class="full"><label for="f-subject">Topic</label><select id="f-subject" name="諮詢主題"><option value="產品諮詢" data-k="product">Product enquiry</option><option value="客製化開發" data-k="custom">Custom development</option><option value="技術支援" data-k="support">Technical support</option><option value="代理經銷合作" data-k="dealer">Distribution / partnership</option><option value="其他" data-k="other">Other</option></select></div>
         <div class="full"><label for="f-msg">Your requirements <span class="req">*</span></label><textarea id="f-msg" name="需求說明" required placeholder="Example: We want to develop a battery-powered LoRa temperature and humidity sensor, about 500 units, in production within 6 months."></textarea></div>
+        <input type="hidden" name="access_key" value="ac56e276-c6f7-475c-a782-f99b7949fe80">
+        <input type="hidden" name="from_name" value="八麟光電官網">
         <input type="hidden" name="網站語言" value="English">
-        <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="full"><button class="btn btn-primary" type="submit">Send message</button>
         <p class="form-note">By sending this form you agree that we use the information above to reply to your enquiry. We never share it with third parties.</p>
         <div class="form-status" role="status" hidden></div></div>

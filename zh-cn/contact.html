@@ -67,7 +67,7 @@
     <h2>在线咨询表单</h2>
     <p class="muted">请尽量描述您的应用情境、预计数量与时程，方便我们提供更准确的建议。</p>
     
-    <form id="contact-form" action="https://formsubmit.co/ajax/bv6mk2002@gmail.com" method="post" novalidate
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="post" novalidate
       data-email="bv6mk2002@gmail.com" data-phone="+886-932-830814" data-sending="送出中…"
       data-submit="送出咨询" data-ok="感谢您的来信！我们已收到消息，将于 1 个工作天内与您联系。" data-err="送出失败，可能是网络问题。请直接来信 {email} 或致电 {phone}。" data-ref="我想索取／了解：">
       <div class="form-grid">
@@ -77,8 +77,10 @@
         <div><label for="f-phone">联系电话</label><input id="f-phone" name="電話" type="tel" autocomplete="tel"></div>
         <div class="full"><label for="f-subject">咨询主题</label><select id="f-subject" name="諮詢主題"><option value="產品諮詢" data-k="product">产品咨询</option><option value="客製化開發" data-k="custom">定制开发</option><option value="技術支援" data-k="support">技术支持</option><option value="代理經銷合作" data-k="dealer">代理经销合作</option><option value="其他" data-k="other">其他</option></select></div>
         <div class="full"><label for="f-msg">需求说明 <span class="req">*</span></label><textarea id="f-msg" name="需求說明" required placeholder="例如：想开发一款 LoRa 温湿度传感器，电池供电，预计数量 500 台，希望 6 个月内量产。"></textarea></div>
+        <input type="hidden" name="access_key" value="ac56e276-c6f7-475c-a782-f99b7949fe80">
+        <input type="hidden" name="from_name" value="八麟光電官網">
         <input type="hidden" name="網站語言" value="简体中文">
-        <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="full"><button class="btn btn-primary" type="submit">送出咨询</button>
         <p class="form-note">送出即表示您同意我们使用上述数据回复您的咨询，数据不会提供给第三方。</p>
         <div class="form-status" role="status" hidden></div></div>

@@ -33,7 +33,7 @@ TERMS = [
     ("「", "“"), ("」", "”"),
 ]
 # 這些字串不轉換（網址參數、程式用的代碼等）
-KEEP = {"email", "tax_id", "phone_intl", "form_endpoint"}
+KEEP = {"email", "tax_id", "phone_intl", "form_endpoint", "form_key"}
 
 
 def conv(s):

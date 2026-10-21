@@ -208,7 +208,8 @@ COMPANY = {'name': '八麟光电科技有限公司',
  'phone_display': '+886-932-830814',
  'email': 'bv6mk2002@gmail.com',
  'hours': '周一至周五 09:00–18:00（GMT+8）',
- 'form_endpoint': 'https://formsubmit.co/ajax/bv6mk2002@gmail.com'}
+ 'form_endpoint': 'https://api.web3forms.com/submit',
+ 'form_key': 'ac56e276-c6f7-475c-a782-f99b7949fe80'}
 
 SERVICES = [{'slug': 'embedded',
   'icon': 'chip',

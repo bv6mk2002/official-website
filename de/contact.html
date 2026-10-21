@@ -67,7 +67,7 @@
     <h2>Kontaktformular</h2>
     <p class="muted">Beschreiben Sie bitte Anwendung, erwartete Stückzahlen und Zeitplan, damit wir Ihnen eine fundierte Empfehlung geben können.</p>
     <p class="lang-note">Sie können uns gerne auf Deutsch oder Englisch schreiben. Wir antworten in der Regel auf Englisch.</p>
-    <form id="contact-form" action="https://formsubmit.co/ajax/bv6mk2002@gmail.com" method="post" novalidate
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="post" novalidate
       data-email="bv6mk2002@gmail.com" data-phone="+886-932-830814" data-sending="Wird gesendet…"
       data-submit="Nachricht senden" data-ok="Vielen Dank! Wir haben Ihre Nachricht erhalten und melden uns innerhalb eines Werktags." data-err="Die Nachricht konnte leider nicht gesendet werden — möglicherweise ein Netzwerkproblem. Bitte schreiben Sie an {email} oder rufen Sie {phone} an." data-ref="Ich interessiere mich für: ">
       <div class="form-grid">
@@ -77,8 +77,10 @@
         <div><label for="f-phone">Telefon</label><input id="f-phone" name="電話" type="tel" autocomplete="tel"></div>
         <div class="full"><label for="f-subject">Thema</label><select id="f-subject" name="諮詢主題"><option value="產品諮詢" data-k="product">Produktanfrage</option><option value="客製化開發" data-k="custom">Kundenspezifische Entwicklung</option><option value="技術支援" data-k="support">Technischer Support</option><option value="代理經銷合作" data-k="dealer">Vertrieb / Partnerschaft</option><option value="其他" data-k="other">Sonstiges</option></select></div>
         <div class="full"><label for="f-msg">Ihre Anforderungen <span class="req">*</span></label><textarea id="f-msg" name="需求說明" required placeholder="Beispiel: Wir möchten einen batteriebetriebenen LoRa-Temperatur- und Feuchtesensor entwickeln, ca. 500 Stück, Serienstart in 6 Monaten."></textarea></div>
+        <input type="hidden" name="access_key" value="ac56e276-c6f7-475c-a782-f99b7949fe80">
+        <input type="hidden" name="from_name" value="八麟光電官網">
         <input type="hidden" name="網站語言" value="Deutsch">
-        <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="full"><button class="btn btn-primary" type="submit">Nachricht senden</button>
         <p class="form-note">Mit dem Absenden stimmen Sie zu, dass wir Ihre Angaben zur Beantwortung Ihrer Anfrage verwenden. Eine Weitergabe an Dritte erfolgt nicht.</p>
         <div class="form-status" role="status" hidden></div></div>

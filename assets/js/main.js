@@ -82,29 +82,31 @@
     if (!form.reportValidity()) return;
     var data = {};
     new FormData(form).forEach(function (v, k) { data[k] = v; });
-    if (data._honey) return;
+    if (data.botcheck) return;  // 機器人陷阱欄位被勾選就不送
+    delete data.botcheck;
     // 信件主旨一律中文；外語版加註訪客使用的語言
     var lang = data['網站語言'];
-    data._subject = '官網諮詢：' + (data['諮詢主題'] || '') + (lang && lang !== '繁體中文' ? '（' + lang + '）' : '');
+    data.subject = '官網諮詢：' + (data['諮詢主題'] || '') + (lang && lang !== '繁體中文' ? '（' + lang + '）' : '');
     btn.disabled = true; btn.textContent = form.dataset.sending;
     status.hidden = true;
-    // 用 form-urlencoded（瀏覽器的「簡單請求」），不觸發 CORS 預檢，避免預檢被擋而送不出去
-    var body = new URLSearchParams();
+    // 用 FormData 送出（瀏覽器的「簡單請求」，不需 CORS 預檢）
+    var body = new FormData();
     Object.keys(data).forEach(function (k) { body.append(k, data[k]); });
     fetch(form.action, {
       method: 'POST',
       headers: { Accept: 'application/json' },
       body: body
     }).then(function (r) {
-      if (!r.ok) throw new Error(r.status);
-      return r.json();
-    }).then(function (res) {
-      // formsubmit 在表單尚未啟用等情況下仍回 HTTP 200，要看 success 欄位才知道是否真的寄出
-      if (!res || String(res.success) !== 'true') throw new Error(res && res.message);
+      // 失敗時服務也會回 JSON 說明原因，所以不論狀態碼都讀內容
+      return r.json().catch(function () { return {}; }).then(function (res) {
+        if (!r.ok || String(res.success) !== 'true') throw new Error(res.message || ('HTTP ' + r.status));
+      });
+    }).then(function () {
       form.reset();
       status.className = 'form-status ok';
       status.textContent = form.dataset.ok;
-    }).catch(function () {
+    }).catch(function (err) {
+      if (window.console) console.warn('contact form:', err && err.message);
       status.className = 'form-status err';
       var mail = '<a href="mailto:' + form.dataset.email + '">' + form.dataset.email + '</a>';
       status.innerHTML = form.dataset.err.replace('{email}', mail).replace('{phone}', form.dataset.phone);

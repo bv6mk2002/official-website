@@ -59,4 +59,6 @@ https://www.balinedge.com.tw — GitHub Pages 靜態網站（repo：`bv6mk2002/o
 
 ## 表單
 
-聯絡表單透過 formsubmit.co 寄到公司信箱。第一次有人送出表單時，formsubmit 會寄一封啟用信，點擊連結後才會開始轉寄。
+聯絡表單透過 Web3Forms（https://web3forms.com）寄到公司信箱，免費方案每月 250 封。
+金鑰設定在 `tools/content.py` 的 `COMPANY["form_key"]`。金鑰本來就會出現在網頁上，不是機密；
+要換收件信箱，請到 web3forms.com 用新信箱重新申請金鑰並替換。

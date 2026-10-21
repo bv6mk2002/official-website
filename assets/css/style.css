@@ -370,7 +370,7 @@ textarea { min-height: 150px; resize: vertical; }
 .form-status { margin-top: 16px; padding: 14px 16px; border-radius: 10px; font-size: .95rem; }
 .form-status.ok { background: #E6F8F0; color: #0B6B47; }
 .form-status.err { background: #FDECEC; color: #A1262B; }
-.hp { position: absolute; left: -9999px; }
+.hp { position: absolute; left: -9999px; opacity: 0; }
 
 /* ---------- CTA band ---------- */
 .cta-band { padding-block: 0; }

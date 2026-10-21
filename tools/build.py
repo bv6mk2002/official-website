@@ -732,8 +732,10 @@ def build_contact(L):
         <div><label for="f-phone">{t("f_phone")}</label><input id="f-phone" name="電話" type="tel" autocomplete="tel"></div>
         <div class="full"><label for="f-subject">{t("f_subject")}</label><select id="f-subject" name="諮詢主題">{opts}</select></div>
         <div class="full"><label for="f-msg">{t("f_msg")} <span class="req">*</span></label><textarea id="f-msg" name="需求說明" required placeholder="{e(t("f_msg_ph"))}"></textarea></div>
+        <input type="hidden" name="access_key" value="{C["form_key"]}">
+        <input type="hidden" name="from_name" value="八麟光電官網">
         <input type="hidden" name="網站語言" value="{L.label}">
-        <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="full"><button class="btn btn-primary" type="submit">{t("form_submit")}</button>
         <p class="form-note">{t("form_privacy")}</p>
         <div class="form-status" role="status" hidden></div></div>
