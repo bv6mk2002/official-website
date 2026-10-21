@@ -94,6 +94,10 @@
       body: JSON.stringify(data)
     }).then(function (r) {
       if (!r.ok) throw new Error(r.status);
+      return r.json();
+    }).then(function (res) {
+      // formsubmit 在表單尚未啟用等情況下仍回 HTTP 200，要看 success 欄位才知道是否真的寄出
+      if (!res || String(res.success) !== 'true') throw new Error(res && res.message);
       form.reset();
       status.className = 'form-status ok';
       status.textContent = form.dataset.ok;
