@@ -17,6 +17,7 @@
   <url><loc>https://www.balinedge.com.tw/insights/esp32-low-power.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/insights/ai-vision-inspection.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/insights/rs485-modbus-wiring.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.balinedge.com.tw/calculators.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/support.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/contact.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.balinedge.com.tw/en/</loc><lastmod>2026-10-22</lastmod><priority>1.0</priority></url>
@@ -36,6 +37,7 @@
   <url><loc>https://www.balinedge.com.tw/en/insights/esp32-low-power.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/en/insights/ai-vision-inspection.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/en/insights/rs485-modbus-wiring.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.balinedge.com.tw/en/calculators.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/en/support.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/en/contact.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.balinedge.com.tw/ja/</loc><lastmod>2026-10-22</lastmod><priority>1.0</priority></url>
@@ -55,6 +57,7 @@
   <url><loc>https://www.balinedge.com.tw/ja/insights/esp32-low-power.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/ja/insights/ai-vision-inspection.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/ja/insights/rs485-modbus-wiring.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.balinedge.com.tw/ja/calculators.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/ja/support.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/ja/contact.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.balinedge.com.tw/de/</loc><lastmod>2026-10-22</lastmod><priority>1.0</priority></url>
@@ -74,6 +77,7 @@
   <url><loc>https://www.balinedge.com.tw/de/insights/esp32-low-power.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/de/insights/ai-vision-inspection.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/de/insights/rs485-modbus-wiring.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.balinedge.com.tw/de/calculators.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/de/support.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/de/contact.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.balinedge.com.tw/ru/</loc><lastmod>2026-10-22</lastmod><priority>1.0</priority></url>
@@ -93,6 +97,7 @@
   <url><loc>https://www.balinedge.com.tw/ru/insights/esp32-low-power.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/ru/insights/ai-vision-inspection.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/ru/insights/rs485-modbus-wiring.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.balinedge.com.tw/ru/calculators.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/ru/support.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/ru/contact.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.balinedge.com.tw/zh-cn/</loc><lastmod>2026-10-22</lastmod><priority>1.0</priority></url>
@@ -112,6 +117,7 @@
   <url><loc>https://www.balinedge.com.tw/zh-cn/insights/esp32-low-power.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/zh-cn/insights/ai-vision-inspection.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.balinedge.com.tw/zh-cn/insights/rs485-modbus-wiring.html</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.balinedge.com.tw/zh-cn/calculators.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/zh-cn/support.html</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.balinedge.com.tw/zh-cn/contact.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.balinedge.com.tw/credits.html</loc><lastmod>2026-10-22</lastmod><priority>0.2</priority></url>

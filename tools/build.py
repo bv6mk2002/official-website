@@ -26,7 +26,7 @@ TODAY = date.today().isoformat()
 import hashlib
 # CSS／JS 的版本號取自檔案內容，檔案一改就換號，避免訪客瀏覽器用到舊的快取
 VER = hashlib.sha1(b"".join(open(os.path.join(ROOT, "assets", x), "rb").read()
-                            for x in ("css/style.css", "js/main.js"))).hexdigest()[:8]
+                            for x in ("css/style.css", "js/main.js", "js/calc.js"))).hexdigest()[:8]
 CREDITS = json.load(open(os.path.join(ROOT, "tools", "credits.json"), encoding="utf-8"))
 SITE_URL = i18n.SITE_URL
 PAGES = []  # 給 sitemap 用
@@ -36,6 +36,17 @@ e = html.escape
 # 聯絡表單主旨：代碼 → 寄給公司的中文主旨（不論訪客語言，信件主旨一律為中文）
 SUBJECTS = [("product", "產品諮詢"), ("custom", "客製化開發"), ("support", "技術支援"),
             ("dealer", "代理經銷合作"), ("other", "其他")]
+
+# 聯絡表單的專案資訊問卷：(欄位名稱, 題目 key, 選項 keys)。寄給公司的值一律用繁中主檔的文字
+QUESTIONS = [
+    ("應用領域", "q_industry", ["ind_factory", "ind_agri", "ind_building", "ind_retail", "ind_medical", "ind_consumer", "ind_other"]),
+    ("專案階段", "q_stage", ["st_idea", "st_spec", "st_proto", "st_mass", "st_maint"]),
+    ("預計數量", "q_qty", ["qty_1", "qty_2", "qty_3", "qty_4", "qty_na"]),
+    ("期望時程", "q_time", ["tm_1", "tm_2", "tm_3", "tm_4", "tm_na"]),
+]
+
+# 技術文章 → 文末推薦的工程工具
+ARTICLE_TOOLS = {"lora-taiwan-as923": "lora", "esp32-low-power": "battery"}
 
 # ---------------------------------------------------------------------------
 # 圖示
@@ -192,7 +203,8 @@ def footer(P):
     svc = "".join(f'<li><a href="{P.url("services/" + s["slug"] + ".html")}">{e(s["name"])}</a></li>' for s in P.D.SERVICES)
     links = "".join(f'<li><a href="{P.url(h)}">{P.t("nav_" + k)}</a></li>' for k, h in
                     [("about", "about.html"), ("applications", "applications.html"), ("demos", "demos.html"),
-                     ("insights", "insights/"), ("support", "support.html"), ("contact", "contact.html")])
+                     ("insights", "insights/"), ("tools", "calculators.html"), ("support", "support.html"),
+                     ("contact", "contact.html")])
     langs = " · ".join(f'<a href="{P.R}{o.prefix}{P.path}" lang="{o.html_lang}">{o.label}</a>' for o in i18n.LANGS)
     return f'''<footer class="site-footer">
   <div class="wrap">
@@ -275,7 +287,8 @@ def org_ld(P):
     }
 
 
-def render(P, *, title, desc, body, active=None, ld=None, og_img="og.png", og_type="website", priority="0.7", in_sitemap=True):
+def render(P, *, title, desc, body, active=None, ld=None, og_img="og.png", og_type="website", priority="0.7", in_sitemap=True,
+           scripts=()):
     L, C = P.L, P.C
     canonical = SITE_URL + "/" + (P.full[:-10] if P.full.endswith("index.html") else P.full)
     full_title = title if C["short"] in title or "Balin" in title else f"{title}｜{C['name']}"
@@ -315,6 +328,7 @@ def render(P, *, title, desc, body, active=None, ld=None, og_img="og.png", og_ty
 </main>
 {footer(P)}
 <script src="{P.R}assets/js/main.js?v={VER}" defer></script>
+{"".join(f'<script src="{P.R}assets/js/{x}?v={VER}" defer></script>' for x in scripts)}
 </body>
 </html>
 '''
@@ -618,13 +632,24 @@ def expand_imgs(R, body):
     return re.sub(r"\{img:([^}]+)\}", rep, body)
 
 
+def tool_callout(P, a):
+    k = ARTICLE_TOOLS.get(a["slug"])
+    if not k:
+        return ""
+    return (f'<div class="callout tool-callout">{icon("tool")}<b>{P.t("tools_callout_" + k)}</b>'
+            f'<a class="btn btn-primary btn-sm" href="{P.url("calculators.html")}#{k}">{P.t("tools_callout_btn")} →</a></div>')
+
+
 def build_insights(L):
     P = Page(L, "insights/index.html")
     D, t = P.D, P.t
     crumbs = [(t("nav_insights"), None)]
     note = f'<p class="note" style="margin-bottom:24px">{t("insights_note")}</p>' if t("insights_note") else ""
     body = f'''{page_hero(P, t("nav_insights"), t("insights_lead"), crumbs, bg="hero", eyebrow="Insights")}
-<section><div class="wrap">{note}<div class="grid g3">{"".join(article_card(P, a) for a in D.ARTICLES)}</div></div></section>
+<section><div class="wrap">{note}
+  <div class="callout tool-callout" style="margin:0 0 32px">{icon("tool")}<b>{t("tools_callout_all")}</b>
+  <a class="btn btn-primary btn-sm" href="{P.url("calculators.html")}">{t("tools_callout_btn")} →</a></div>
+  <div class="grid g3">{"".join(article_card(P, a) for a in D.ARTICLES)}</div></div></section>
 {cta_band(P, t("insights_cta_title"), t("insights_cta_text"))}'''
     render(P, title=t("nav_insights"), desc=t("insights_desc"), body=body, active="insights",
            ld=[breadcrumb_ld(P, crumbs)], priority="0.7")
@@ -648,6 +673,7 @@ def build_insights(L):
     <figure style="margin-top:0">{img(P.R, a["img"], a["title"], lazy=False)}<figcaption>{t("illustrative")}</figcaption></figure>
     {toc_html}
     {expand_imgs(P.R, a["body"])}
+    {tool_callout(P, a)}
     <hr style="border:0;border-top:1px solid var(--line);margin:48px 0 24px">
     <p class="muted">{t("article_disclaimer")}<a href="{P.url("services/" + s["slug"] + ".html")}">{e(s["name"])}</a></p>
   </article>
@@ -662,6 +688,101 @@ def build_insights(L):
                     "datePublished": a["date"], "inLanguage": L.html_lang, "image": f'{SITE_URL}/assets/img/{a["img"]}.webp',
                     "author": {"@type": "Organization", "name": P.C["name"]}, "publisher": {"@id": SITE_URL + "/#org"}}],
                priority="0.6")
+
+
+def build_calculators(L):
+    P = Page(L, "calculators.html")
+    t = P.t
+    crumbs = [(t("nav_tools"), None)]
+    art = {a["slug"]: a for a in P.D.ARTICLES}
+
+    def num(id_, key, val, step="any", lo=None, hi=None):
+        rng = (f' min="{lo}"' if lo is not None else "") + (f' max="{hi}"' if hi is not None else "")
+        return (f'<div><label for="{id_}">{t(key)}</label>'
+                f'<input id="{id_}" type="number" inputmode="decimal" value="{val}" step="{step}"{rng}></div>')
+
+    def sel(id_, key, opts, cur):
+        o = "".join(f'<option value="{v}"{" selected" if v == cur else ""}>{x}</option>' for v, x in opts)
+        return f'<div><label for="{id_}">{t(key)}</label><select id="{id_}">{o}</select></div>'
+
+    def out(id_, key, unit=""):
+        u = f" <small>{unit}</small>" if unit else ""
+        return f'<div><span>{t(key)}</span><b><output id="{id_}">–</output>{u}</b></div>'
+
+    lora_in = "".join([
+        sel("l-sf", "l_sf", [(str(x), f"SF{x}") for x in range(7, 13)], "10"),
+        sel("l-bw", "l_bw", [(x, f"{x} kHz") for x in ("125", "250", "500")], "125"),
+        sel("l-cr", "l_cr", [(str(x), f"4/{x + 4}") for x in range(1, 5)], "1"),
+        num("l-freq", "l_freq", 923, 0.1, 100, 3000),
+        num("l-payload", "l_payload", 20, 1, 1, 255),
+        num("l-ptx", "l_ptx", 14, 0.5, -10, 30),
+        num("l-gtx", "l_gtx", 2, 0.5, -20, 20),
+        num("l-grx", "l_grx", 2, 0.5, -20, 20),
+        num("l-loss", "l_loss", 1, 0.5, 0, 30),
+        num("l-nf", "l_nf", 6, 0.5, 0, 20),
+        num("l-margin", "l_margin", 10, 1, 0, 40),
+        sel("l-env", "l_env", [("2.0", t("env_free")), ("2.7", t("env_rural")), ("3.2", t("env_urban")), ("3.8", t("env_dense"))], "2.7"),
+    ])
+    lora_out = "".join([out("o-sens", "r_sens", "dBm"), out("o-budget", "r_budget", "dB"), out("o-pl", "r_pl", "dB"),
+                        out("o-dist", "r_dist"), out("o-toa", "r_toa", "ms"), out("o-rate", "r_rate", "bps"),
+                        out("o-duty", "r_duty", t("unit_times"))])
+    bat_in = "".join([
+        num("b-cap", "b_cap", 2400, 1, 1),
+        num("b-usable", "b_usable", 85, 1, 1, 100),
+        num("b-sd", "b_sd", 1, 0.1, 0, 50),
+        num("b-interval", "b_interval", 15, "any", 0.1),
+        num("b-sleep", "b_sleep", 10, "any", 0),
+        num("b-active-i", "b_active_i", 30, "any", 0),
+        num("b-active-t", "b_active_t", 2, "any", 0),
+        num("b-tx-i", "b_tx_i", 45, "any", 0),
+        num("b-tx-t", "b_tx_t", 371, "any", 0),
+    ])
+    bat_out = "".join([out("o-avg", "r_avg", "mA"), out("o-daily", "r_daily", "mAh"), out("o-life", "r_life")])
+    share = "".join(f'<span class="s-{k}" style="width:0"></span>' for k in ("sleep", "active", "tx"))
+    legend = "".join(f'<li class="s-{k}"><i></i>{t("share_" + k)} <output id="o-share-{k}">–</output></li>' for k in ("sleep", "active", "tx"))
+
+    def more(slug, key):
+        return f'<p class="muted" style="margin:16px 0 0"><a href="{P.url("insights/" + slug + ".html")}">{t(key)} →</a></p>' if slug in art else ""
+
+    ask = f'<a class="btn btn-line btn-sm calc-ask" href="{P.contact("custom")}" data-ref="{{ref}}">{t("calc_ask")}</a>'
+    body = f'''{page_hero(P, t("tools_title"), t("tools_lead"), crumbs, bg="p5", eyebrow="Engineering Tools")}
+<section><div class="wrap">
+  <nav class="calc-jump"><a class="btn btn-line btn-sm" href="#lora">{icon("signal", 18)} {t("lora_title")}</a>
+  <a class="btn btn-line btn-sm" href="#battery">{icon("clock", 18)} {t("battery_title")}</a></nav>
+
+  <article class="calc" id="lora" data-ref="{t("calc_ref_lora")}">
+    <div class="calc-head"><h2>{t("lora_title")}</h2><p>{t("lora_text")}</p></div>
+    <div class="calc-body">
+      <form class="calc-in form-grid" onsubmit="return false">{lora_in}</form>
+      <div class="calc-out"><div class="kpis">{lora_out}</div>
+        <p class="calc-warn" id="o-far" hidden>{t("r_far")}</p>
+        {ask.replace("{ref}", "lora")}</div>
+    </div>
+    <p class="note" style="margin-top:20px">{t("lora_formula")}</p>
+    {more("lora-taiwan-as923", "lora_more")}
+  </article>
+
+  <article class="calc" id="battery" data-ref="{t("calc_ref_battery")}" data-days="{t("unit_days")}" data-years="{t("unit_years")}">
+    <div class="calc-head"><h2>{t("battery_title")}</h2><p>{t("battery_text")}</p></div>
+    <div class="calc-body">
+      <form class="calc-in form-grid" onsubmit="return false">{bat_in}
+        <div class="full"><button type="button" class="btn btn-line btn-sm" id="b-use-toa">{t("b_use_toa")}</button></div></form>
+      <div class="calc-out"><div class="kpis">{bat_out}</div>
+        <span class="lbl">{t("r_share")}</span><div class="share-bar">{share}</div><ul class="share-legend">{legend}</ul>
+        {ask.replace("{ref}", "battery")}</div>
+    </div>
+    <p class="note" style="margin-top:20px">{t("battery_tip")}</p>
+    {more("esp32-low-power", "battery_more")}
+  </article>
+  <p class="note">{t("calc_note")}</p>
+</div></section>
+{cta_band(P)}'''
+    render(P, title=t("tools_title"), desc=t("tools_desc"), body=body, active="insights", priority="0.7",
+           ld=[breadcrumb_ld(P, crumbs),
+               {"@context": "https://schema.org", "@type": "WebApplication", "name": t("tools_title"),
+                "applicationCategory": "EngineeringApplication", "operatingSystem": "Any", "inLanguage": L.html_lang,
+                "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TWD"}, "publisher": {"@id": SITE_URL + "/#org"}}],
+           scripts=["calc.js"])
 
 
 def build_support(L):
@@ -700,6 +821,21 @@ def build_support(L):
                    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in D.FAQS]}])
 
 
+def project_questions(P):
+    t, B = P.t, i18n.BASE
+    sels = "".join(
+        f'<div><label for="q-{i}">{t(q)}</label><select id="q-{i}" name="{name}"><option value="">{t("q_choose")}</option>'
+        + "".join(f'<option value="{e(B.t(k))}">{t(k)}</option>' for k in keys) + "</select></div>"
+        for i, (name, q, keys) in enumerate(QUESTIONS))
+    techs = [(b["name"], s["name"]) for b, s in zip(B.data.SERVICES, P.D.SERVICES)] + [(B.t("tech_unsure"), t("tech_unsure"))]
+    boxes = "".join(f'<label class="opt"><input type="checkbox" name="所需技術" value="{e(v)}"> {e(x)}</label>' for v, x in techs)
+    return f'''<fieldset class="full q-block">
+          <legend>{t("q_title")}</legend><p class="form-note" style="margin:0 0 14px">{t("q_lead")}</p>
+          <div class="form-grid">{sels}
+          <div class="full"><span class="lbl">{t("q_tech")}</span><div class="opts">{boxes}</div></div></div>
+        </fieldset>'''
+
+
 def build_contact(L):
     P = Page(L, "contact.html")
     C, t = P.C, P.t
@@ -734,6 +870,7 @@ def build_contact(L):
         <div><label for="f-email">{t("f_email")} <span class="req">*</span></label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
         <div><label for="f-phone">{t("f_phone")}</label><input id="f-phone" name="電話" type="tel" autocomplete="tel"></div>
         <div class="full"><label for="f-subject">{t("f_subject")}</label><select id="f-subject" name="諮詢主題">{opts}</select></div>
+        {project_questions(P)}
         <div class="full"><label for="f-msg">{t("f_msg")} <span class="req">*</span></label><textarea id="f-msg" name="需求說明" required placeholder="{e(t("f_msg_ph"))}"></textarea></div>
         <input type="hidden" name="access_key" value="{C["form_key"]}">
         <input type="hidden" name="from_name" value="八麟光電官網">
@@ -813,6 +950,7 @@ if __name__ == "__main__":
         build_applications(L)
         build_demos(L)
         build_insights(L)
+        build_calculators(L)
         build_support(L)
         build_contact(L)
         print(f"   {L.label:<8} /{L.prefix:<7} {len(PAGES) - n} 頁")

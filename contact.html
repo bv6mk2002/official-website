@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=8639d95a">
+<link rel="stylesheet" href="assets/css/style.css?v=846e2390">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://www.balinedge.com.tw/"}, {"@type": "ListItem", "position": 2, "name": "聯絡我們", "item": "https://www.balinedge.com.tw/contact.html"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "@id": "https://www.balinedge.com.tw/#org", "name": "八麟光電科技有限公司", "alternateName": ["BALIN OPTOELECTRONICS CO., LTD.", "八麟光電科技有限公司"], "url": "https://www.balinedge.com.tw/", "logo": "https://www.balinedge.com.tw/assets/img/logo.svg", "image": "https://www.balinedge.com.tw/assets/img/og.png", "description": "AIoT 智慧產品設計中心，專注嵌入式系統、AI 視覺辨識、LoRa／RF 無線通訊與工業控制整合，提供從概念到量產的 OEM／ODM 服務。", "telephone": "+886-932-830814", "email": "bv6mk2002@gmail.com", "taxID": "24406780", "foundingDate": "2009-05", "address": {"@type": "PostalAddress", "streetAddress": "永大路3段618巷12號1樓", "addressLocality": "永康區", "addressRegion": "臺南市", "addressCountry": "TW"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "18:00"}], "areaServed": "Worldwide", "knowsAbout": ["Embedded systems", "AI vision", "LoRa", "RF antenna design", "Industrial automation", "OEM/ODM", "STM32", "ESP32"]}</script>
 </head>
 <body data-close="關閉">
@@ -77,6 +77,11 @@
         <div><label for="f-email">電子信箱 <span class="req">*</span></label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
         <div><label for="f-phone">聯絡電話</label><input id="f-phone" name="電話" type="tel" autocomplete="tel"></div>
         <div class="full"><label for="f-subject">諮詢主題</label><select id="f-subject" name="諮詢主題"><option value="產品諮詢" data-k="product">產品諮詢</option><option value="客製化開發" data-k="custom">客製化開發</option><option value="技術支援" data-k="support">技術支援</option><option value="代理經銷合作" data-k="dealer">代理經銷合作</option><option value="其他" data-k="other">其他</option></select></div>
+        <fieldset class="full q-block">
+          <legend>專案資訊（選填）</legend><p class="form-note" style="margin:0 0 14px">勾選幾個項目，工程師就能更快判斷技術方向與時程。</p>
+          <div class="form-grid"><div><label for="q-0">應用領域</label><select id="q-0" name="應用領域"><option value="">請選擇</option><option value="工業自動化／設備監測">工業自動化／設備監測</option><option value="智慧農業／環境監測">智慧農業／環境監測</option><option value="智慧建築／能源管理">智慧建築／能源管理</option><option value="零售／物流">零售／物流</option><option value="醫療／照護">醫療／照護</option><option value="消費性電子">消費性電子</option><option value="其他">其他</option></select></div><div><label for="q-1">目前階段</label><select id="q-1" name="專案階段"><option value="">請選擇</option><option value="只有構想">只有構想</option><option value="已有規格或需求文件">已有規格或需求文件</option><option value="已有原型，需要改良">已有原型，需要改良</option><option value="準備量產">準備量產</option><option value="既有產品維護或改版">既有產品維護或改版</option></select></div><div><label for="q-2">預計數量</label><select id="q-2" name="預計數量"><option value="">請選擇</option><option value="100 台以下">100 台以下</option><option value="100–1,000 台">100–1,000 台</option><option value="1,000–10,000 台">1,000–10,000 台</option><option value="10,000 台以上">10,000 台以上</option><option value="尚未確定">尚未確定</option></select></div><div><label for="q-3">期望時程</label><select id="q-3" name="期望時程"><option value="">請選擇</option><option value="3 個月內">3 個月內</option><option value="3–6 個月">3–6 個月</option><option value="6–12 個月">6–12 個月</option><option value="1 年以上">1 年以上</option><option value="尚未確定">尚未確定</option></select></div>
+          <div class="full"><span class="lbl">需要的技術（可複選）</span><div class="opts"><label class="opt"><input type="checkbox" name="所需技術" value="嵌入式系統"> 嵌入式系統</label><label class="opt"><input type="checkbox" name="所需技術" value="AI 視覺辨識"> AI 視覺辨識</label><label class="opt"><input type="checkbox" name="所需技術" value="LoRa 無線通訊"> LoRa 無線通訊</label><label class="opt"><input type="checkbox" name="所需技術" value="RF 天線設計"> RF 天線設計</label><label class="opt"><input type="checkbox" name="所需技術" value="工業控制"> 工業控制</label><label class="opt"><input type="checkbox" name="所需技術" value="客製化 ODM"> 客製化 ODM</label><label class="opt"><input type="checkbox" name="所需技術" value="還不確定"> 還不確定</label></div></div></div>
+        </fieldset>
         <div class="full"><label for="f-msg">需求說明 <span class="req">*</span></label><textarea id="f-msg" name="需求說明" required placeholder="例如：想開發一款 LoRa 溫濕度感測器，電池供電，預計數量 500 台，希望 6 個月內量產。"></textarea></div>
         <input type="hidden" name="access_key" value="ac56e276-c6f7-475c-a782-f99b7949fe80">
         <input type="hidden" name="from_name" value="八麟光電官網">
@@ -99,7 +104,7 @@
         <p>AIoT 智慧產品設計中心 — 嵌入式系統、AI 視覺辨識、LoRa／RF 無線通訊與工業控制整合，從概念到量產一條龍完成。</p>
       </div>
       <div><h4>產品與服務</h4><ul><li><a href="services/embedded.html">嵌入式系統</a></li><li><a href="services/ai-vision.html">AI 視覺辨識</a></li><li><a href="services/lora.html">LoRa 無線通訊</a></li><li><a href="services/rf-antenna.html">RF 天線設計</a></li><li><a href="services/industrial.html">工業控制</a></li><li><a href="services/odm.html">客製化 ODM</a></li></ul></div>
-      <div><h4>快速連結</h4><ul><li><a href="about.html">關於我們</a></li><li><a href="applications.html">應用場域</a></li><li><a href="demos.html">即時展示</a></li><li><a href="insights/">技術專欄</a></li><li><a href="support.html">技術支援</a></li><li><a href="contact.html">聯絡我們</a></li></ul></div>
+      <div><h4>快速連結</h4><ul><li><a href="about.html">關於我們</a></li><li><a href="applications.html">應用場域</a></li><li><a href="demos.html">即時展示</a></li><li><a href="insights/">技術專欄</a></li><li><a href="calculators.html">工程工具</a></li><li><a href="support.html">技術支援</a></li><li><a href="contact.html">聯絡我們</a></li></ul></div>
       <div><h4>聯絡資訊</h4><ul>
         <li>臺南市永康區龍埔里永大路3段618巷12號1樓</li>
         <li>電話：<a href="tel:+886-932-830814">0932-830814</a></li>
@@ -114,6 +119,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/js/main.js?v=8639d95a" defer></script>
+<script src="assets/js/main.js?v=846e2390" defer></script>
+
 </body>
 </html>

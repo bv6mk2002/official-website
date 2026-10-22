@@ -44,6 +44,7 @@ https://www.balinedge.com.tw — GitHub Pages 靜態網站（repo：`bv6mk2002/o
 | `en/`、`ja/`、`de/`、`ru/`、`zh-cn/` | 各語言版本（結構與中文版相同） |
 | `assets/css/style.css` | 全站樣式 |
 | `assets/js/main.js` | 選單、表單等互動 |
+| `calculators.html`、`assets/js/calc.js` | 工程工具（LoRa 鏈路預算、電池續航試算）；頁面文字在各語言檔的 `l_*`、`b_*`、`r_*` 等 key，計算在 calc.js |
 | `assets/img/` | 圖片（WebP）、標誌、分享預覽圖 |
 | `*dashboard.html` | 即時監測展示（獨立頁面，不由 build.py 產生） |
 | `tools/credits.json` | 開放授權圖片的來源與授權資訊 |
@@ -61,5 +62,6 @@ https://www.balinedge.com.tw — GitHub Pages 靜態網站（repo：`bv6mk2002/o
 ## 表單
 
 聯絡表單透過 Web3Forms（https://web3forms.com）寄到公司信箱，免費方案每月 250 封。
-金鑰設定在 `tools/content.py` 的 `COMPANY["form_key"]`。金鑰本來就會出現在網頁上，不是機密；
+金鑰設定在 `tools/content.py` 的 `COMPANY["form_key"]`。
+選擇「產品諮詢／客製化開發」時會顯示「專案資訊」問卷（`build.py` 的 `QUESTIONS`），答案一律以繁體中文附在信件內文最後。金鑰本來就會出現在網頁上，不是機密；
 要換收件信箱，請到 web3forms.com 用新信箱重新申請金鑰並替換。

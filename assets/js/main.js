@@ -149,13 +149,24 @@
     if (ref) form.querySelector('[name="需求說明"]').value = form.dataset.ref + ref + '\n\n';
   }
 
+  // 專案資訊問卷只在「產品諮詢／客製化開發」時顯示
+  var subjSel = form.querySelector('[name="諮詢主題"]');
+  var qBlock = form.querySelector('.q-block');
+  function toggleQ() {
+    var k = subjSel.options[subjSel.selectedIndex].dataset.k;
+    if (qBlock) qBlock.hidden = !(k === 'product' || k === 'custom');
+  }
+  subjSel.addEventListener('change', toggleQ);
+  toggleQ();
+
   var status = form.querySelector('.form-status');
   var btn = form.querySelector('button[type="submit"]');
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!form.reportValidity()) return;
     var data = {};
-    new FormData(form).forEach(function (v, k) { data[k] = v; });
+    var fd = new FormData(form);
+    fd.forEach(function (v, k) { data[k] = v; });
     if (data.botcheck) return;  // 機器人陷阱欄位被勾選就不送
     // 信件主旨一律中文；外語版加註訪客使用的語言
     var lang = data['網站語言'];
@@ -173,6 +184,14 @@
       '需求說明：',
       data['需求說明'] || ''
     ].join('\n');
+    // 專案資訊（問卷有填才附上）
+    if (qBlock && !qBlock.hidden) {
+      var q = [];
+      ['應用領域', '專案階段', '預計數量', '期望時程'].forEach(function (k) { if (data[k]) q.push(k + '：' + data[k]); });
+      var tech = fd.getAll('所需技術');
+      if (tech.length) q.push('所需技術：' + tech.join('、'));
+      if (q.length) message += '\n\n【專案資訊】\n' + q.join('\n');
+    }
     btn.disabled = true; btn.textContent = form.dataset.sending;
     status.hidden = true;
     // 用 FormData 送出（瀏覽器的「簡單請求」，不需 CORS 預檢）
@@ -194,6 +213,7 @@
       });
     }).then(function () {
       form.reset();
+      toggleQ();
       status.className = 'form-status ok';
       status.textContent = form.dataset.ok;
     }).catch(function (err) {

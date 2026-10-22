@@ -466,3 +466,47 @@ html:lang(en) .card .body p, html:lang(de) .card .body p, html:lang(ru) .card .b
 .lang-bar .btn { padding: 8px 14px; }
 .lang-bar button { background: none; border: 0; color: #9DB1C8; font-size: 1.4rem; line-height: 1; cursor: pointer; padding: 4px 8px; }
 .lang-bar button:hover { color: #fff; }
+
+/* ---------- 聯絡表單：專案資訊問卷 ---------- */
+.q-block { border: 1px dashed #C9D5E4; border-radius: 12px; padding: 18px 18px 20px; margin: 0; min-width: 0; background: var(--bg-soft); }
+.q-block[hidden] { display: none; }
+.q-block legend { font-weight: 700; padding: 0 8px; font-size: .95rem; }
+.lbl { display: block; font-size: .9rem; font-weight: 700; margin-bottom: 6px; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+label.opt { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-weight: 500; font-size: .9rem; background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+label.opt:has(input:checked) { border-color: var(--blue); color: var(--blue); background: #EAF1FF; }
+label.opt input { width: auto; margin: 0; accent-color: var(--blue); }
+
+/* ---------- 工程工具 ---------- */
+.calc-jump { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+.calc-jump .btn { display: inline-flex; align-items: center; gap: 8px; }
+.calc { border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 4vw, 40px); margin-bottom: 40px; box-shadow: var(--shadow); scroll-margin-top: 96px; background: #fff; }
+.calc-head p { color: var(--muted); max-width: 760px; }
+.calc-body { display: grid; grid-template-columns: 1.25fr 1fr; gap: 32px; align-items: start; margin-top: 12px; }
+@media (max-width: 900px) { .calc-body { grid-template-columns: 1fr; } }
+.calc-in { gap: 14px; }
+.calc-in input, .calc-in select { padding: 10px 12px; }
+.calc-in label { font-size: .84rem; }
+.calc-out { background: var(--navy); color: #DCE6F2; border-radius: 14px; padding: 22px; position: sticky; top: 96px; }
+@media (max-width: 900px) { .calc-out { position: static; } }
+.calc-out .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.calc-out .kpis div { background: rgba(255,255,255,.06); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+.calc-out .kpis span { display: block; font-size: .8rem; color: #9DB1C8; line-height: 1.4; }
+.calc-out .kpis b { display: block; font-family: var(--font-en); font-size: 1.35rem; color: #fff; line-height: 1.3; overflow-wrap: anywhere; }
+.calc-out .kpis small { font-size: .78rem; color: #9DB1C8; font-weight: 500; }
+.calc-out .kpis div:nth-child(4) b, .calc-out .kpis div:last-child:nth-child(3) b { color: #6CC8FF; }
+.calc-out .kpis div:last-child:nth-child(3) { grid-column: 1 / -1; }
+.calc-out .lbl { color: #9DB1C8; font-weight: 500; font-size: .8rem; }
+.calc-out .btn-line { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); margin-top: 6px; }
+.calc-out .btn-line:hover { border-color: #fff; color: #fff; }
+.calc-warn { font-size: .82rem; color: #FFD58A; margin: 0 0 12px; }
+.share-bar { display: flex; height: 14px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.08); gap: 2px; }
+.share-bar span { transition: width .3s; }
+.s-sleep i, .share-bar .s-sleep { background: #6CC8FF; }
+.s-active i, .share-bar .s-active { background: #22C08A; }
+.s-tx i, .share-bar .s-tx { background: #FFB547; }
+.share-legend { list-style: none; padding: 0; margin: 10px 0 16px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .85rem; }
+.share-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+.tool-callout { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tool-callout svg { color: var(--blue); flex-shrink: 0; }
+.tool-callout b { flex: 1 1 240px; }
